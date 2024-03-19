@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-<img src="https://github.com/Carlos-93/react-weather-map/public/favicon.ico?raw=true" width="150">
+<img src="https://github.com/Carlos-93/react-weather-map/public/favicon.png?raw=true" width="150">
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
