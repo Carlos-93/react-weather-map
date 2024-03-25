@@ -3,7 +3,7 @@ import axios from 'axios';
 import { SearchBar, WeatherInfo } from './components';
 
 // App Component
-function App() {
+export default function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState('');
 
@@ -52,4 +52,3 @@ function App() {
     </div>
   );
 }
-export default App;

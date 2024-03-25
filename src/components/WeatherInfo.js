@@ -1,6 +1,5 @@
-
 // WeatherInfo Component
-function WeatherInfo({ data }) {
+export default function WeatherInfo({ data }) {
     return (
         <div className="container">
             <div className="top">
@@ -33,4 +32,3 @@ function WeatherInfo({ data }) {
         </div>
     );
 }
-export default WeatherInfo;
