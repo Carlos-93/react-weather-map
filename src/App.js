@@ -25,6 +25,8 @@ export default function App() {
         return 'haze';
       } else if (main.includes('thunderstorm')) {
         return 'thunderstorm';
+      } else if (main.includes('drizzle')) {
+        return 'rain';
       }
     }
     return 'default';
