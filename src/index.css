@@ -78,13 +78,13 @@ h1 {
   padding: .7rem 1.5rem;
   font-size: 1.2rem;
   border-radius: 25px;
-  border: 2px solid rgba(255, 255, 255, 0.8);
+  border: 2px solid black;
   background: rgba(255, 255, 255, 0.5);
-  color: #f8f8f8;
+  color: black;
 }
 
 ::placeholder {
-  color: #ffffff;
+  color: black;
 }
 
 .container {
