@@ -1,15 +1,14 @@
 // SearchBar Component
-function SearchBar({ location, setLocation, searchLocation }) {
+export default function SearchBar({ location, setLocation, searchLocation }) {
     return (
         <div className="search">
             <input
                 value={location}
                 onChange={(event) => setLocation(event.target.value)}
-                onKeyPress={searchLocation}
-                placeholder="Enter Location"
+                onKeyDown={searchLocation}
+                placeholder="Enter a city..."
                 type="text"
             />
         </div>
     );
 }
-export default SearchBar;

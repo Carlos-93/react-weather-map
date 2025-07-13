@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { SearchBar, WeatherInfo } from './components';
 
@@ -9,24 +9,25 @@ export default function App() {
 
   // Get Weather Class Function
   function getWeatherClass(weather) {
-    if (weather) {
-      const main = weather[0].main.toLowerCase();
-      if (main.includes('rain')) {
-        return 'rain';
-      } else if (main.includes('clouds')) {
-        return 'clouds';
-      } else if (main.includes('clear')) {
-        return 'clear';
-      } else if (main.includes('snow')) {
-        return 'snow';
-      } else if (main.includes('fog')) {
-        return 'fog';
-      } else if (main.includes('haze')) {
-        return 'haze';
-      } else if (main.includes('thunderstorm')) {
-        return 'thunderstorm';
-      } else if (main.includes('drizzle')) {
-        return 'rain';
+    if (weather && weather[0] && weather[0].main) {
+      switch (weather[0].main.toLowerCase()) {
+        case 'rain':
+        case 'drizzle':
+          return 'rain';
+        case 'clouds':
+          return 'clouds';
+        case 'clear':
+          return 'clear';
+        case 'snow':
+          return 'snow';
+        case 'fog':
+          return 'fog';
+        case 'haze':
+          return 'haze';
+        case 'thunderstorm':
+          return 'thunderstorm';
+        default:
+          return 'default';
       }
     }
     return 'default';
@@ -48,9 +49,9 @@ export default function App() {
 
   // Return App Component
   return (
-    <div className={`app ${getWeatherClass(data.weather)}`}>
+    <main className={`app ${getWeatherClass(data.weather)}`}>
       <SearchBar location={location} setLocation={setLocation} searchLocation={searchLocation} />
       <WeatherInfo data={data} />
-    </div>
+    </main>
   );
 }
