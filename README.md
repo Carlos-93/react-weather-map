@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/Carlos-93/react-weather-map/main/public/logo192.png" width="20%"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Carlos-93/react-weather-map/main/public/logo192.png" width="15%"></p>
 
 # Welcome to my Weather & Radar App
 
