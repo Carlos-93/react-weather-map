@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { afterEach, expect, test, vi } from 'vitest';
 import App from './App';
 
 const madrid = {
@@ -10,7 +11,7 @@ const madrid = {
 };
 
 function mockFetch(status, body = {}) {
-  global.fetch = jest.fn().mockResolvedValue({ ok: status < 400, status, json: async () => body });
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: status < 400, status, json: async () => body }));
 }
 
 async function search(city) {
@@ -18,7 +19,7 @@ async function search(city) {
 }
 
 afterEach(() => {
-  delete global.fetch;
+  vi.unstubAllGlobals();
 });
 
 test('shows the weather of the searched city', async () => {

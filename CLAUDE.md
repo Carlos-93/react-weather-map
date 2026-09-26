@@ -5,18 +5,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-pnpm start      # Dev server at http://localhost:3000 with hot reload
-pnpm build      # Production build to build/
-pnpm test       # Jest in interactive watch mode (tests in src/App.test.jsx, fetch is mocked)
+pnpm dev        # Vite dev server at http://localhost:3000 with hot reload (opens the browser)
+pnpm build      # Production build to dist/
+pnpm preview    # Serves dist/ locally, including /api/weather
+pnpm test       # Vitest in watch mode (tests in src/App.test.jsx, fetch is mocked)
+pnpm test run   # Vitest once, without watch mode
+pnpm lint       # Oxlint (.oxlintrc.json)
 ```
 
-Set `CI=true` to run `pnpm test` once without watch mode. With `CI=true`, `pnpm build` also fails on lint warnings. There is no separate lint script: ESLint (`react-app` config in `package.json`) runs inside `react-scripts` during `start` and `build`.
+`pnpm build` does not lint; run `pnpm lint` separately.
 
-**Package manager: pnpm only.** The project pins `pnpm@11.2.2` via `packageManager` in `package.json`. Enable with `corepack enable` if needed. `pnpm-workspace.yaml` blocks the `core-js` and `core-js-pure` install scripts through `allowBuilds`; they only print a funding message.
+**Package manager: pnpm only.** The project pins `pnpm@11.2.2` via `packageManager` in `package.json`. Enable with `corepack enable` if needed.
 
 ## Stack
 
-Create React App (`react-scripts` 5) with React 19, plain JavaScript (`.jsx`) and plain CSS. No TypeScript, no router, no state library. `react-scripts` is deprecated; keep it unless a migration is explicitly requested.
+Vite 8 with `@vitejs/plugin-react`, React 19, plain JavaScript (`.jsx` for any file with JSX) and plain CSS. No TypeScript, no router, no state library. `package.json` sets `"type": "module"`, so every `.js` file is ESM. Tests use Vitest with jsdom and Testing Library; `src/setupTests.js` loads the `jest-dom` matchers and cleans up after each test. Requires Node.js 22.22 or 24.15 or later (the jsdom and Vitest minimums).
 
 ## Code style
 
@@ -28,14 +31,16 @@ Create React App (`react-scripts` 5) with React 19, plain JavaScript (`.jsx`) an
 
 Single-screen app that shows the current weather for a searched city. All user-facing text is in Spanish (Spain), hardcoded in the components; there is no i18n library.
 
+- `index.html` (project root) loads `src/main.jsx`, which renders `App`. Static files served as-is (favicon, manifest, `llms.txt`, `robots.txt`) live in `public/`.
 - `src/App.jsx` holds all state (`data`, `location`). `data` starts as `null` and `WeatherInfo` only renders after a successful search. `searchLocation` runs on form submit (Enter): it calls `/api/weather?q=<city>` with native `fetch` and stores the response in `data`. Failed searches show a `sonner` toast (404 means the city was not found).
-- `api/weather.js` is a Vercel Function (CommonJS, `(req, res)` handler) that proxies the OpenWeather Current Weather API (`/data/2.5/weather`, metric units, `lang: 'es'`), so the API key never reaches the browser. It forwards OpenWeather's status and JSON, returns 400 for an empty `q` and 502 if OpenWeather is unreachable, and lets the CDN cache successful answers for 10 minutes. In development, `src/setupProxy.js` mounts the same handler on the CRA dev server, so `pnpm start` works without the Vercel CLI. Both files must stay CommonJS (`require`/`module.exports`), unlike the rest of the code: CRA loads `setupProxy.js` with `require()` and webpack-dev-server swallows its errors, so an `import` there leaves `pnpm start` printing "Compiled successfully!" while nothing listens on the port. `setupProxy.js` only loads at startup, so restart `pnpm start` after changing either file.
+- `api/weather.js` is a Vercel Function that exports a Web-standard `GET(request)` handler returning a `Response`. It proxies the OpenWeather Current Weather API (`/data/2.5/weather`, metric units, `lang: 'es'`), so the API key never reaches the browser. It forwards OpenWeather's status and JSON, returns 400 for an empty `q` and 502 if OpenWeather is unreachable, and lets the CDN cache successful answers for 10 minutes.
+- The `weather-api` plugin in `vite.config.js` mounts that same `GET` handler on `/api/weather` in the dev and preview servers, so `pnpm dev` and `pnpm preview` work without the Vercel CLI. Its `configureServer`/`configurePreviewServer` hooks must not return a value, because Vite calls a returned function as a post-middleware hook. Restart `pnpm dev` after changing `api/weather.js` or `vite.config.js`.
 - `lang: 'es'` translates `weather[0].description` (shown in the UI) but never `weather[0].main`, which stays in English. `getWeatherClass` maps `data.weather[0].main` to a CSS class (`rain`, `clouds`, `clear`, `snow`, `fog`, `haze`, `thunderstorm`, or `default`) that is added to `<main className="app ...">`.
 - `src/components/` contains presentational components only: `SearchBar` (controlled search input inside a `<form role="search">`) and `WeatherInfo` (renders fields from the raw API response). Both are re-exported from `src/components/index.jsx`.
 - `src/index.css` holds all styles. Each weather class sets the background image on `.app:before` from `src/assets/images/<class>.jpg`. To support a new weather condition, add a case to `getWeatherClass`, a `.app.<class>:before` rule that sets `background-image`, and the matching image (at most 1920px wide). Dark images need light text, like the `.app.thunderstorm` rules.
 
 ## Deployment
 
-Vercel deploys every push to `main` to https://weather-radar-map.vercel.app. Vercel builds the CRA app and turns `api/` into Functions automatically; there is no `vercel.json`.
+Vercel deploys every push to `main` to https://weather-radar-map.vercel.app. `vercel.json` pins the Vite framework preset (build with `vite build`, output `dist/`), and Vercel turns `api/` into Functions automatically.
 
-The OpenWeather API key is the server-only variable `OPENWEATHER_KEY`: set it in `.env.local` (git-ignored) locally and in the Vercel project settings for deploys. Never give it a `REACT_APP_` prefix, because CRA inlines those variables into the client bundle.
+The OpenWeather API key is the server-only variable `OPENWEATHER_KEY`: set it in `.env.local` (git-ignored) locally and in the Vercel project settings for deploys. `vite.config.js` copies it from the `.env` files into `process.env` for the dev and preview servers. Never give it a `VITE_` prefix, because Vite inlines those variables into the client bundle.

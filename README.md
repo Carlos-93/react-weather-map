@@ -15,14 +15,15 @@ A React web app that shows the current weather for any city, using the [OpenWeat
 
 ## Tech stack
 
-- [React 19](https://react.dev) with [Create React App](https://create-react-app.dev)
+- [React 19](https://react.dev) with [Vite](https://vite.dev)
 - Native `fetch` for API requests
 - [sonner](https://sonner.emilkowal.ski) for notices
 - Plain CSS
+- [Vitest](https://vitest.dev) and [Testing Library](https://testing-library.com) for tests, [Oxlint](https://oxc.rs/docs/guide/usage/linter) for linting
 
 ## Getting started
 
-Requirements: Node.js 22 or later and [pnpm](https://pnpm.io). The project pins `pnpm@11.2.2` in `package.json`; if you don't have pnpm, enable it with `corepack enable`.
+Requirements: Node.js 22.22 or 24.15 or later and [pnpm](https://pnpm.io). The project pins `pnpm@11.2.2` in `package.json`; if you don't have pnpm, enable it with `corepack enable`.
 
 1. Clone the repository and install the dependencies:
 
@@ -41,7 +42,7 @@ Requirements: Node.js 22 or later and [pnpm](https://pnpm.io). The project pins 
 3. Start the development server:
 
    ```bash
-   pnpm start
+   pnpm dev
    ```
 
    The app opens at http://localhost:3000.
@@ -50,12 +51,14 @@ Requirements: Node.js 22 or later and [pnpm](https://pnpm.io). The project pins 
 
 | Command | Description |
 |---|---|
-| `pnpm start` | Development server at http://localhost:3000 with hot reload |
-| `pnpm build` | Production build to the `build/` folder |
-| `pnpm test` | Jest and Testing Library tests in interactive watch mode |
+| `pnpm dev` | Development server at http://localhost:3000 with hot reload |
+| `pnpm build` | Production build to the `dist/` folder |
+| `pnpm preview` | Serves the production build locally, including `/api/weather` |
+| `pnpm test` | Vitest tests in watch mode (`pnpm test run` runs them once) |
+| `pnpm lint` | Lints the code with Oxlint |
 
 ## Deployment
 
 The project deploys to [Vercel](https://vercel.com) on every push to `main`. `OPENWEATHER_KEY` must be set in the Vercel project settings.
 
-The browser never calls OpenWeather directly. It calls `/api/weather`, a Vercel Function in `api/weather.js` that adds the API key on the server, so the key does not appear in the client code. During development, the same function runs inside the `pnpm start` server through `src/setupProxy.js`.
+The browser never calls OpenWeather directly. It calls `/api/weather`, a Vercel Function in `api/weather.js` that adds the API key on the server, so the key does not appear in the client code. During development, a small plugin in `vite.config.js` runs the same function inside the `pnpm dev` and `pnpm preview` servers.
