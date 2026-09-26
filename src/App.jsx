@@ -22,10 +22,17 @@ export default function App() {
         case 'snow':
           return 'snow';
         case 'fog':
+        case 'mist':
           return 'fog';
         case 'haze':
+        case 'smoke':
+        case 'dust':
+        case 'sand':
+        case 'ash':
           return 'haze';
         case 'thunderstorm':
+        case 'squall':
+        case 'tornado':
           return 'thunderstorm';
         default:
           return 'default';
@@ -42,10 +49,10 @@ export default function App() {
           params: { q: location, units: 'metric', lang: 'es', appid: process.env.REACT_APP_OPENWEATHER_KEY },
         });
         setData(data);
+        setLocation('');
       } catch (error) {
         toast.error(error.response?.status === 404 ? `No se ha encontrado la ciudad "${location}"` : 'No se ha podido cargar el tiempo, inténtalo más tarde');
       }
-      setLocation('');
     }
   };
 
