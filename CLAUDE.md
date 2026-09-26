@@ -35,5 +35,5 @@ Single-screen app that shows the current weather for a searched city.
 
 ## Known issues
 
-- The OpenWeather API key is hardcoded in `src/App.jsx` and committed to a public repository. Move it to `.env` as `REACT_APP_OPENWEATHER_KEY` when touching that code. It still ships in the client bundle, so real protection needs a server-side proxy.
+- The OpenWeather API key comes from `REACT_APP_OPENWEATHER_KEY`: set it in `.env.local` (git-ignored) locally and in the Vercel project settings for deploys. CRA inlines it at build time, so it still ships in the client bundle; real protection needs a server-side proxy.
 - `gh-pages` is a dev dependency, but there is no `deploy` script or `homepage` field configured.
