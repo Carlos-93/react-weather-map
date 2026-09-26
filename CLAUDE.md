@@ -33,7 +33,10 @@ Single-screen app that shows the current weather for a searched city. All user-f
 - `src/components/` contains presentational components only: `SearchBar` (controlled input) and `WeatherInfo` (renders fields from the raw API response). Both are re-exported from `src/components/index.jsx`.
 - `src/index.css` holds all styles. Each weather class sets the background image on `.app:before` from `src/assets/images/<class>.jpg`. To support a new weather condition, add a case to `getWeatherClass`, a `.app.<class>:before` rule and the matching image.
 
+## Deployment
+
+Vercel deploys every push to `main` to https://weather-radar-map.vercel.app.
+
 ## Known issues
 
 - The OpenWeather API key comes from `REACT_APP_OPENWEATHER_KEY`: set it in `.env.local` (git-ignored) locally and in the Vercel project settings for deploys. CRA inlines it at build time, so it still ships in the client bundle; real protection needs a server-side proxy.
-- `gh-pages` is a dev dependency, but there is no `deploy` script or `homepage` field configured.

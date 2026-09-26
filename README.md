@@ -1,72 +1,59 @@
 <p align="center"><img src="https://raw.githubusercontent.com/Carlos-93/react-weather-map/main/public/logo192.png" width="15%"></p>
 
-# Welcome to my Weather & Radar App
+# Tiempo y Radar
 
-This project is a weather application developed with the React framework, designed to demonstrate how the capabilities of React can be used in conjunction with third-party APIs to create dynamic and reactive web applications. Here you will find how to configure and run the project locally, as well as a basic guide to contributing to it.
+A React web app that shows the current weather for any city, using the [OpenWeather Current Weather API](https://openweathermap.org/current). The interface is in Spanish.
 
-## Available Scripts
+**Demo:** https://weather-radar-map.vercel.app
 
-In the project directory, you can run:
+## Features
 
-### `pnpm start`
+- Search by city: type the name and press Enter.
+- Temperature, weather description, feels-like temperature, humidity and wind speed in km/h.
+- Background that matches the weather: clear, clouds, rain, snow, fog, haze or thunderstorm.
+- Notice when the city does not exist or the request fails.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [React 19](https://react.dev) with [Create React App](https://create-react-app.dev)
+- [axios](https://axios-http.com) for API requests
+- [sonner](https://sonner.emilkowal.ski) for notices
+- Plain CSS
 
-### `pnpm test`
+## Getting started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Requirements: Node.js 22 or later and [pnpm](https://pnpm.io). The project pins `pnpm@11.2.2` in `package.json`; if you don't have pnpm, enable it with `corepack enable`.
 
-### `pnpm build`
+1. Clone the repository and install the dependencies:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   git clone https://github.com/Carlos-93/react-weather-map.git
+   cd react-weather-map
+   pnpm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Create a free API key on [OpenWeather](https://home.openweathermap.org/api_keys) and save it in a `.env.local` file at the project root:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   REACT_APP_OPENWEATHER_KEY=your_api_key
+   ```
 
-### `pnpm eject`
+3. Start the development server:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   pnpm start
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   The app opens at http://localhost:3000.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Scripts
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| Command | Description |
+|---|---|
+| `pnpm start` | Development server at http://localhost:3000 with hot reload |
+| `pnpm build` | Production build to the `build/` folder |
+| `pnpm test` | Jest tests in interactive watch mode |
 
-## Learn More
+## Deployment
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The project deploys to [Vercel](https://vercel.com) on every push to `main`. `REACT_APP_OPENWEATHER_KEY` must be set in the Vercel project settings, because Create React App inlines it into the code at build time.
