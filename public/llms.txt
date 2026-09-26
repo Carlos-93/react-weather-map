@@ -1,0 +1,17 @@
+# Weather & Radar
+
+> Single-page web app that shows the current weather for any city, using the OpenWeather Current Weather API. Built with React by Carlos Araujo Galván.
+
+Type a city name in the search box and press Enter. The page shows the city name, temperature (°C), weather condition, feels-like temperature, humidity (%) and wind speed (km/h), and changes the background image to match the condition (clear, clouds, rain, snow, fog, haze or thunderstorm). Unknown cities show a "City not found" notice.
+
+The app has no other pages, no user accounts and no forecast data: it only reports current conditions.
+
+## Links
+
+- [Live app](https://weather-radar-map.vercel.app/): the app itself
+- [Source code](https://github.com/Carlos-93/react-weather-map): GitHub repository
+- [OpenWeather Current Weather API](https://openweathermap.org/current): data source for all weather values
+
+## Optional
+
+- [Author portfolio](https://www.carlos-ag.com/): other projects by the author
