@@ -39,11 +39,11 @@ export default function App() {
     if (event.key === 'Enter' && location.trim()) {
       try {
         const { data } = await axios.get('https://api.openweathermap.org/data/2.5/weather', {
-          params: { q: location, units: 'metric', appid: process.env.REACT_APP_OPENWEATHER_KEY },
+          params: { q: location, units: 'metric', lang: 'es', appid: process.env.REACT_APP_OPENWEATHER_KEY },
         });
         setData(data);
       } catch (error) {
-        toast.error(error.response?.status === 404 ? `City "${location}" not found` : 'Could not load the weather, try again later');
+        toast.error(error.response?.status === 404 ? `No se ha encontrado la ciudad "${location}"` : 'No se ha podido cargar el tiempo, inténtalo más tarde');
       }
       setLocation('');
     }

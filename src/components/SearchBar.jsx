@@ -6,7 +6,7 @@ export default function SearchBar({ location, setLocation, searchLocation }) {
                 value={location}
                 onChange={(event) => setLocation(event.target.value)}
                 onKeyDown={searchLocation}
-                placeholder="Enter a city..."
+                placeholder="Introduce una ciudad..."
                 type="text"
             />
         </div>

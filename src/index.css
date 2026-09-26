@@ -108,6 +108,10 @@ h1 {
   font-weight: 500;
 }
 
+.app .description p::first-letter {
+  text-transform: uppercase;
+}
+
 .app .bottom {
   display: flex;
   justify-content: space-around;

@@ -12,7 +12,7 @@ export default function WeatherInfo({ data }) {
                 </div>
                 
                 <div className="description">
-                    {data.weather ? <p>{data.weather[0].main}</p> : null}
+                    {data.weather ? <p>{data.weather[0].description}</p> : null}
                 </div>
             </div>
 
@@ -20,17 +20,17 @@ export default function WeatherInfo({ data }) {
                 <div className="bottom">
                     <div className="feels">
                         {data.main ? <span className="bold">{data.main.feels_like.toFixed()}°C</span> : null}
-                        <span>Feels Like</span>
+                        <span>Sensación térmica</span>
                     </div>
                 
                     <div className="humidity">
                         {data.main ? <span className="bold">{data.main.humidity}%</span> : null}
-                        <span>Humidity</span>
+                        <span>Humedad</span>
                     </div>
                 
                     <div className="wind">
                         {data.wind ? <span className="bold">{(data.wind.speed * 3.6).toFixed()} km/h</span> : null}
-                        <span>Wind Speed</span>
+                        <span>Velocidad del viento</span>
                     </div>
                 </div>
             )}
