@@ -1,14 +1,16 @@
 // SearchBar Component
 export default function SearchBar({ location, setLocation, searchLocation }) {
     return (
-        <div className="search">
+        <form className="search" role="search" onSubmit={searchLocation}>
             <input
                 value={location}
                 onChange={(event) => setLocation(event.target.value)}
-                onKeyDown={searchLocation}
                 placeholder="Introduce una ciudad..."
-                type="text"
+                aria-label="Ciudad"
+                type="search"
+                enterKeyHint="search"
+                autoComplete="off"
             />
-        </div>
+        </form>
     );
 }
