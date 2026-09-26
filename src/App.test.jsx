@@ -34,7 +34,7 @@ test('shows the weather of the searched city', async () => {
   expect(screen.getByText('18 km/h')).toBeInTheDocument();
   expect(screen.getByRole('main')).toHaveClass('app thunderstorm');
   expect(screen.getByRole('searchbox')).toHaveValue('');
-  expect(global.fetch).toHaveBeenCalledWith('/api/weather?q=Madrid');
+  expect(global.fetch).toHaveBeenCalledWith('/api/weather?city=Madrid');
 });
 
 test('keeps the query and shows a notice when the city does not exist', async () => {

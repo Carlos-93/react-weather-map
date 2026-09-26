@@ -1,66 +1,37 @@
-import { SearchBar, WeatherInfo } from './components';
-import { Toaster, toast } from 'sonner';
 import { useState } from 'react';
+import { Toaster, toast } from 'sonner';
 
-// Get Weather Class Function
-function getWeatherClass(weather) {
-  switch (weather?.[0]?.main?.toLowerCase()) {
-    case 'rain':
-    case 'drizzle':
-      return 'rain';
-    case 'clouds':
-      return 'clouds';
-    case 'clear':
-      return 'clear';
-    case 'snow':
-      return 'snow';
-    case 'fog':
-    case 'mist':
-      return 'fog';
-    case 'haze':
-    case 'smoke':
-    case 'dust':
-    case 'sand':
-    case 'ash':
-      return 'haze';
-    case 'thunderstorm':
-    case 'squall':
-    case 'tornado':
-      return 'thunderstorm';
-    default:
-      return 'default';
-  }
-}
+import SearchBar from './components/SearchBar';
+import WeatherInfo from './components/WeatherInfo';
+import { WEATHER_CONDITIONS } from './constants';
 
-// App Component
 export default function App() {
   const [data, setData] = useState(null);
-  const [location, setLocation] = useState('');
+  const [query, setQuery] = useState('');
 
-  // Search Location Function
-  async function searchLocation(event) {
+  // Method to handle the search form submission, fetch weather data from the API, and update the state accordingly
+  async function searchWeather(event) {
     event.preventDefault();
-    const query = location.trim();
-    if (!query) return;
+    const city = query.trim();
+    if (!city) return;
 
     try {
-      const response = await fetch(`/api/weather?${new URLSearchParams({ q: query })}`);
+      const response = await fetch(`/api/weather?${new URLSearchParams({ city })}`);
       if (response.status === 404) {
-        toast.error(`No se ha encontrado la ciudad "${query}"`);
+        toast.error(`No se ha encontrado la ciudad "${city}"`);
         return;
       }
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       setData(await response.json());
-      setLocation('');
+      setQuery('');
     } catch {
       toast.error('No se ha podido cargar el tiempo, inténtalo más tarde');
     }
   }
 
-  // Return App Component
   return (
-    <main className={`app ${getWeatherClass(data?.weather)}`}>
-      <SearchBar location={location} setLocation={setLocation} searchLocation={searchLocation} />
+    <main className={`app ${WEATHER_CONDITIONS[data?.weather[0].main] ?? 'default'}`}>
+      <SearchBar value={query} onChange={setQuery} onSubmit={searchWeather} />
       {data && <WeatherInfo data={data} />}
       <Toaster richColors position="top-right" />
     </main>

@@ -61,4 +61,4 @@ Requirements: Node.js 22.22 or 24.15 or later and [pnpm](https://pnpm.io). The p
 
 The project deploys to [Vercel](https://vercel.com) on every push to `main`. `OPENWEATHER_KEY` must be set in the Vercel project settings.
 
-The browser never calls OpenWeather directly. It calls `/api/weather`, a Vercel Function in `api/weather.js` that adds the API key on the server, so the key does not appear in the client code. During development, a small plugin in `vite.config.js` runs the same function inside the `pnpm dev` and `pnpm preview` servers.
+The browser never calls OpenWeather directly. It calls `/api/weather`, a Vercel Function in `api/weather.js` that adds the API key on the server, so the key does not appear in the client code. During development, a small Vite plugin in `plugins/weather-api.js` runs the same function inside the `pnpm dev` and `pnpm preview` servers.

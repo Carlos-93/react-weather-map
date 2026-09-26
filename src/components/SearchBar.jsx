@@ -1,10 +1,9 @@
-// SearchBar Component
-export default function SearchBar({ location, setLocation, searchLocation }) {
+export default function SearchBar({ value, onChange, onSubmit }) {
     return (
-        <form className="search" role="search" onSubmit={searchLocation}>
+        <form className="search" role="search" onSubmit={onSubmit}>
             <input
-                value={location}
-                onChange={(event) => setLocation(event.target.value)}
+                value={value}
+                onChange={(event) => onChange(event.target.value)}
                 placeholder="Introduce una ciudad..."
                 aria-label="Ciudad"
                 type="search"

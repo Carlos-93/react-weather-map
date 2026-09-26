@@ -1,4 +1,3 @@
-// WeatherInfo Component
 export default function WeatherInfo({ data }) {
     return (
         <div className="container">
