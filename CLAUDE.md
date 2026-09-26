@@ -28,7 +28,7 @@ Create React App (`react-scripts` 5) with React 19, plain JavaScript (`.jsx`) an
 
 Single-screen app that shows the current weather for a searched city.
 
-- `src/App.jsx` holds all state (`data`, `location`). `searchLocation` runs on Enter: it calls the OpenWeather Current Weather API (`/data/2.5/weather`, metric units) with `axios` and stores the response in `data`.
+- `src/App.jsx` holds all state (`data`, `location`). `searchLocation` runs on Enter: it calls the OpenWeather Current Weather API (`/data/2.5/weather`, metric units) with `axios` and stores the response in `data`. Failed searches show a `sonner` toast (404 means the city was not found).
 - `getWeatherClass` maps `data.weather[0].main` to a CSS class (`rain`, `clouds`, `clear`, `snow`, `fog`, `haze`, `thunderstorm`, or `default`) that is added to `<main className="app ...">`.
 - `src/components/` contains presentational components only: `SearchBar` (controlled input) and `WeatherInfo` (renders fields from the raw API response). Both are re-exported from `src/components/index.jsx`.
 - `src/index.css` holds all styles. Each weather class sets the background image on `.app:before` from `src/assets/images/<class>.jpg`. To support a new weather condition, add a case to `getWeatherClass`, a `.app.<class>:before` rule and the matching image.

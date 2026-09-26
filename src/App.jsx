@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { Toaster, toast } from 'sonner';
 import { SearchBar, WeatherInfo } from './components';
 
 // App Component
@@ -35,14 +36,14 @@ export default function App() {
 
   // Search Location Function
   async function searchLocation(event) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && location.trim()) {
       try {
         const { data } = await axios.get('https://api.openweathermap.org/data/2.5/weather', {
           params: { q: location, units: 'metric', appid: process.env.REACT_APP_OPENWEATHER_KEY },
         });
         setData(data);
       } catch (error) {
-        console.error("Error fetching weather data:", error);
+        toast.error(error.response?.status === 404 ? `City "${location}" not found` : 'Could not load the weather, try again later');
       }
       setLocation('');
     }
@@ -53,6 +54,7 @@ export default function App() {
     <main className={`app ${getWeatherClass(data.weather)}`}>
       <SearchBar location={location} setLocation={setLocation} searchLocation={searchLocation} />
       <WeatherInfo data={data} />
+      <Toaster richColors position="top-right" />
     </main>
   );
 }
