@@ -29,7 +29,7 @@ export default function WeatherInfo({ data }) {
                     </div>
                 
                     <div className="wind">
-                        {data.wind ? <span className="bold">{data.wind.speed.toFixed()} Kms/h</span> : null}
+                        {data.wind ? <span className="bold">{(data.wind.speed * 3.6).toFixed()} km/h</span> : null}
                         <span>Wind Speed</span>
                     </div>
                 </div>
