@@ -1,0 +1,160 @@
+/* Lets the card spotlight fade in and out instead of switching instantly */
+@property --spotlight {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+/* The card itself plus the pieces every card reuses: hint, headline metric and fact rows */
+@layer components {
+  .card {
+    position: relative;
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+    border: 1px solid oklch(100% 0 0 / 0.14);
+    border-radius: 1.75rem;
+    background:
+      radial-gradient(22rem circle at var(--pointer-x, 50%) var(--pointer-y, 0%),
+        oklch(100% 0 0 / calc(0.04 + var(--spotlight) * 0.08)),
+        transparent 65%),
+      oklch(20% 0.025 258 / 0.52);
+    box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.12), 0 2px 6px oklch(0% 0 0 / 0.18), 0 18px 40px -18px oklch(0% 0 0 / 0.55);
+    backdrop-filter: blur(22px) saturate(160%);
+    animation: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(300ms + var(--index) * 70ms);
+    transition:
+      translate 250ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 250ms,
+      --spotlight 250ms;
+  }
+
+  @media (hover: hover) {
+    .card:hover {
+      --spotlight: 1;
+      translate: 0 -3px;
+      border-color: oklch(100% 0 0 / 0.28);
+    }
+  }
+
+  .card__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: oklch(93% 0.01 250 / 0.82);
+
+    & svg {
+      inline-size: 1rem;
+      block-size: 1rem;
+      color: var(--accent);
+    }
+  }
+
+  .card__hint {
+    font-size: 0.9375rem;
+    color: oklch(93% 0.01 250 / 0.82);
+  }
+
+  .metric {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
+  .metric__value {
+    font-size: clamp(2.25rem, 1.8rem + 1.2vw, 3rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metric__unit {
+    color: oklch(93% 0.01 250 / 0.82);
+  }
+
+  /* Label and value rows; margin-block-start: auto keeps them at the bottom of each card */
+  .facts {
+    display: grid;
+    gap: 0.55rem;
+    margin-block-start: auto;
+    font-size: 0.9375rem;
+
+    &>div {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-block-start: 0.55rem;
+      border-block-start: 1px solid oklch(100% 0 0 / 0.1);
+    }
+
+    & dt {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: oklch(93% 0.01 250 / 0.82);
+    }
+
+    & dt svg {
+      inline-size: 1rem;
+      block-size: 1rem;
+      color: oklch(87% 0.16 80);
+    }
+
+    & dd {
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      text-align: end;
+    }
+  }
+
+  /* Very narrow cards stack each label above its value */
+  @container (width < 14rem) {
+    .facts {
+      &>div {
+        flex-direction: column;
+        gap: 0.1rem;
+      }
+
+      & dd {
+        text-align: start;
+      }
+    }
+  }
+
+  /* Rows in narrow cards, side-by-side columns once the card has room */
+  @container (width >=30rem) {
+    .facts--columns {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      gap: 1rem;
+
+      &>div {
+        flex-direction: column;
+        justify-content: start;
+        gap: 0.2rem;
+      }
+
+      & dd {
+        font-size: 1.1875rem;
+        text-align: start;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation-name: fade;
+  }
+
+  .card:hover {
+    translate: none;
+  }
+}

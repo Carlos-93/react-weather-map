@@ -1,3 +1,5 @@
+import './Backdrop.css';
+
 // Irrational steps spread particles evenly without calling Math.random during render
 const sequence = (index, step) => (index * step) % 1;
 

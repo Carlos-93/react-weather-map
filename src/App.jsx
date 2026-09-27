@@ -2,12 +2,12 @@ import { useEffect, useRef, useState, useTransition } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster, toast } from 'sonner';
 
-import Backdrop from './components/Backdrop';
-import CurrentWeather from './components/CurrentWeather';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import WeatherDetails from './components/WeatherDetails';
-import Welcome from './components/Welcome';
+import Backdrop from './components/Backdrop/Backdrop';
+import CurrentWeather from './components/CurrentWeather/CurrentWeather';
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
+import WeatherDetails from './components/WeatherDetails/WeatherDetails';
+import Welcome from './components/Welcome/Welcome';
 import { WEATHER_CONDITIONS } from './constants';
 import { formatTemperature } from './utils/format';
 

@@ -1,0 +1,256 @@
+@layer effects {
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    contain: strict;
+    pointer-events: none;
+
+    &>* {
+      position: absolute;
+    }
+  }
+
+  .backdrop__image {
+    inset: -3%;
+    background: url('../../assets/images/home.jpg') center / cover no-repeat;
+    animation: drift 28s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+  }
+
+  .app[data-weather='clear'] .backdrop__image {
+    background-image: url('../../assets/images/clear.jpg');
+  }
+
+  .app[data-weather='clouds'] .backdrop__image {
+    background-image: url('../../assets/images/clouds.jpg');
+  }
+
+  .app[data-weather='rain'] .backdrop__image {
+    background-image: url('../../assets/images/rain.jpg');
+  }
+
+  .app[data-weather='snow'] .backdrop__image {
+    background-image: url('../../assets/images/snow.jpg');
+  }
+
+  .app[data-weather='fog'] .backdrop__image {
+    background-image: url('../../assets/images/fog.jpg');
+  }
+
+  .app[data-weather='haze'] .backdrop__image {
+    background-image: url('../../assets/images/haze.jpg');
+  }
+
+  .app[data-weather='thunderstorm'] .backdrop__image {
+    background-image: url('../../assets/images/thunderstorm.jpg');
+  }
+
+  /* Darkens the photo just enough for white text, so the sky keeps its colour; whiter photos and nights get more */
+  .backdrop__shade {
+    --shade-top: 0.12;
+    --shade-bottom: 0.5;
+
+    inset: 0;
+    background:
+      radial-gradient(130% 90% at 50% 0%, transparent 45%, oklch(10% 0.03 258 / 0.3)),
+      linear-gradient(to bottom, oklch(14% 0.03 258 / var(--shade-top)), oklch(12% 0.03 258 / var(--shade-bottom)));
+  }
+
+  .app:is([data-weather='fog'], [data-weather='haze']) .backdrop__shade {
+    --shade-top: 0.3;
+    --shade-bottom: 0.62;
+  }
+
+  /* White, busy branches behind the city name need the most shade of the day photos */
+  .app[data-weather='snow'] .backdrop__shade {
+    --shade-top: 0.45;
+    --shade-bottom: 0.72;
+  }
+
+  .app[data-period='night'] .backdrop__shade {
+    --shade-top: 0.62;
+    --shade-bottom: 0.86;
+  }
+
+  .backdrop__glow {
+    inset-block-start: -25vmax;
+    inset-inline-end: -20vmax;
+    inline-size: 70vmax;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, oklch(95% 0.09 85 / 0.65), oklch(88% 0.14 70 / 0.2) 40%, transparent 68%);
+    mix-blend-mode: screen;
+    animation: glow 6s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+  }
+
+  .backdrop__mist {
+    --mist-opacity: 0.7;
+
+    inset: 0;
+    opacity: var(--mist-opacity);
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -10% -50%;
+      background:
+        radial-gradient(35% 25% at 25% 35%, oklch(100% 0 0 / 0.22), transparent 70%),
+        radial-gradient(30% 20% at 70% 65%, oklch(100% 0 0 / 0.17), transparent 70%),
+        radial-gradient(40% 30% at 50% 90%, oklch(100% 0 0 / 0.2), transparent 70%);
+      animation: mist 40s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+    }
+
+    &::after {
+      inset-block-start: 15%;
+      animation-duration: 28s;
+      animation-direction: alternate-reverse;
+    }
+  }
+
+  .app:is([data-weather='fog'], [data-weather='haze']) .backdrop__mist {
+    --mist-opacity: 1;
+  }
+
+  .particle--drop {
+    inset-block-start: -15%;
+    inset-inline-start: var(--x);
+    inline-size: 2px;
+    block-size: var(--length);
+    background: linear-gradient(to bottom, transparent, oklch(96% 0.02 230 / 0.7));
+    rotate: 12deg;
+    animation: fall var(--duration) linear var(--delay) infinite;
+  }
+
+  .particle--flake {
+    inset-block-start: -3%;
+    inset-inline-start: var(--x);
+    inline-size: var(--size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, oklch(100% 0 0 / 0.95) 35%, oklch(100% 0 0 / 0) 70%);
+    animation: snowfall var(--duration) linear var(--delay) infinite;
+  }
+
+  .particle--star {
+    inset-block-start: var(--y);
+    inset-inline-start: var(--x);
+    inline-size: var(--size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: oklch(100% 0 0);
+    box-shadow: 0 0 6px 1px oklch(100% 0 0 / 0.6);
+    animation: twinkle 3.5s cubic-bezier(0.65, 0, 0.35, 1) var(--delay) infinite;
+  }
+
+  /* Two quick flashes every 6 seconds, well below the three-flashes-per-second limit */
+  .backdrop__lightning {
+    inset: 0;
+    background: radial-gradient(90% 70% at 65% 5%, oklch(96% 0.04 285 / 0.8), transparent 75%);
+    opacity: 0;
+    animation: lightning 6s linear 1.5s infinite;
+  }
+}
+
+/* Ambient effects are decoration: with reduced motion they stop or disappear */
+@media (prefers-reduced-motion: reduce) {
+
+  .backdrop__image,
+  .backdrop__glow,
+  .backdrop__mist::before,
+  .backdrop__mist::after,
+  .particle--star {
+    animation: none;
+  }
+
+  .particle--drop,
+  .particle--flake,
+  .backdrop__lightning {
+    display: none;
+  }
+}
+
+@keyframes drift {
+  from {
+    scale: 1.05;
+  }
+
+  to {
+    scale: 1.16;
+    translate: -4% -2.5%;
+  }
+}
+
+@keyframes glow {
+  to {
+    scale: 1.3;
+    opacity: 0.6;
+  }
+}
+
+@keyframes mist {
+  from {
+    translate: -22% 0;
+  }
+
+  to {
+    translate: 22% 0;
+  }
+}
+
+@keyframes fall {
+  to {
+    translate: -30vh 140vh;
+  }
+}
+
+@keyframes snowfall {
+  25% {
+    translate: var(--sway) 27vh;
+  }
+
+  50% {
+    translate: 0 54vh;
+  }
+
+  75% {
+    translate: calc(var(--sway) * -1) 81vh;
+  }
+
+  100% {
+    translate: 0 108vh;
+  }
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.1;
+    scale: 0.4;
+  }
+}
+
+@keyframes lightning {
+
+  0%,
+  86%,
+  100% {
+    opacity: 0;
+  }
+
+  87% {
+    opacity: 0.9;
+  }
+
+  88% {
+    opacity: 0.15;
+  }
+
+  89.5% {
+    opacity: 0.7;
+  }
+
+  92% {
+    opacity: 0;
+  }
+}

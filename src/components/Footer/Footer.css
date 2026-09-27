@@ -1,0 +1,53 @@
+@layer components {
+  .footer {
+    display: grid;
+    align-items: center;
+    gap: 1.25rem 2rem;
+    inline-size: min(100% - 2 * clamp(1rem, 0.4rem + 2.5vw, 2.5rem), 76rem);
+    margin: 0 auto 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid oklch(100% 0 0 / 0.14);
+    border-radius: 1.75rem;
+    background: oklch(20% 0.025 258 / 0.52);
+    backdrop-filter: blur(22px) saturate(160%);
+    font-size: 0.9375rem;
+    color: oklch(93% 0.01 250 / 0.82);
+  }
+
+  @media (width >=48rem) {
+    .footer {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  .footer__name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: oklch(98% 0.005 250);
+
+    & svg {
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+      color: var(--accent);
+    }
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer__copy {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid oklch(100% 0 0 / 0.14);
+    font-size: 0.8125rem;
+  }
+}

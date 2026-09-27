@@ -1,9 +1,10 @@
+import { formatCityTime, formatCoordinates, formatRelativeTime, formatUtcOffset } from '../../utils/format';
 import { MapPin } from 'lucide-react';
 
-import useNow from '../hooks/useNow';
-import { formatCityTime, formatCoordinates, formatRelativeTime, formatUtcOffset } from '../utils/format';
-import Card from './Card';
-import ExternalLink from './ExternalLink';
+import ExternalLink from '../ExternalLink/ExternalLink';
+import useNow from '../../hooks/useNow';
+import Card from '../Card/Card';
+import './LocationCard.css';
 
 export default function LocationCard({ data, index }) {
     const now = useNow();
@@ -16,15 +17,18 @@ export default function LocationCard({ data, index }) {
                     <dt>Coordenadas</dt>
                     <dd>{formatCoordinates(coord)}</dd>
                 </div>
+
                 <div>
                     <dt>Zona horaria</dt>
                     <dd>{formatUtcOffset(timezone)}</dd>
                 </div>
+
                 <div>
                     <dt>Datos medidos</dt>
                     <dd>{formatRelativeTime(dt, now)} ({formatCityTime(dt, timezone)})</dd>
                 </div>
             </dl>
+
             <div className="card__links">
                 <ExternalLink href={`https://www.openstreetmap.org/?mlat=${coord.lat}&mlon=${coord.lon}#map=11/${coord.lat}/${coord.lon}`}>
                     Ver en el mapa

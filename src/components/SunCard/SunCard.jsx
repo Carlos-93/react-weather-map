@@ -1,8 +1,9 @@
+import { formatCityTime, formatDuration } from '../../utils/format';
 import { Sun, Sunrise, Sunset } from 'lucide-react';
 
-import useNow from '../hooks/useNow';
-import { formatCityTime, formatDuration } from '../utils/format';
-import Card from './Card';
+import useNow from '../../hooks/useNow';
+import Card from '../Card/Card';
+import './SunCard.css';
 
 // Half circle from the left horizon (sunrise) to the right one (sunset)
 const ARC = 'M20 90 A80 80 0 0 1 180 90';
@@ -13,6 +14,7 @@ function sunStatus(nowSeconds, sunrise, sunset) {
     return 'El sol ya se ha puesto';
 }
 
+// Component for displaying sunrise, sunset and day length, with a visual representation of the sun's path
 export default function SunCard({ sunrise, sunset, timezone, index }) {
     const nowSeconds = Math.floor(useNow() / 1000);
     const dayLength = sunset - sunrise;
@@ -31,16 +33,19 @@ export default function SunCard({ sunrise, sunset, timezone, index }) {
                     <circle className="sun-path__sun" cx={100 - 80 * Math.cos(angle)} cy={90 - 80 * Math.sin(angle)} r="7" />
                 )}
             </svg>
+            
             <p className="card__hint">{sunStatus(nowSeconds, sunrise, sunset)}</p>
             <dl className="facts facts--columns">
                 <div>
                     <dt><Sunrise aria-hidden="true" />Amanecer</dt>
                     <dd>{formatCityTime(sunrise, timezone)}</dd>
                 </div>
+
                 <div>
                     <dt><Sunset aria-hidden="true" />Atardecer</dt>
                     <dd>{formatCityTime(sunset, timezone)}</dd>
                 </div>
+                
                 <div>
                     <dt>Horas de luz</dt>
                     <dd>{formatDuration(dayLength)}</dd>

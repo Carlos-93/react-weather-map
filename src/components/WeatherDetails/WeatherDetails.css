@@ -1,0 +1,36 @@
+@layer components {
+  .details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+  }
+
+  .card:is(.card--wide, .card--precipitation, .card--location) {
+    grid-column: span 2;
+  }
+
+  /* Four columns: wind + sun, four small cards, then precipitation + a wider location card */
+  @media (width >=62rem) {
+    .details {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card.card--precipitation {
+      grid-column: span 1;
+    }
+
+    .card.card--location {
+      grid-column: span 3;
+    }
+  }
+
+  @media (width < 24rem) {
+    .details {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .card:is(.card--wide, .card--precipitation, .card--location) {
+      grid-column: auto;
+    }
+  }
+}

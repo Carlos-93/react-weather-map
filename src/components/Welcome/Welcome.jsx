@@ -1,6 +1,7 @@
 import { LoaderCircle, MapPin } from 'lucide-react';
+import { SUGGESTED_CITIES } from '../../constants';
 
-import { SUGGESTED_CITIES } from '../constants';
+import './Welcome.css';
 
 // Component for displaying the welcome message, the current location button and suggested cities
 export default function Welcome({ onSelect, onLocate, isPending, isLocating }) {
@@ -18,6 +19,7 @@ export default function Welcome({ onSelect, onLocate, isPending, isLocating }) {
                     {isLocating ? <LoaderCircle className="spinner" aria-hidden="true" /> : <MapPin aria-hidden="true" />}
                     {isLocating ? 'Buscando tu ubicación…' : 'Usar mi ubicación'}
                 </button>
+
                 <span className="visually-hidden" role="status">{isLocating ? 'Buscando tu ubicación…' : ''}</span>
                 <p id="suggestions-label" className="welcome__label">O prueba con</p>
                 <ul className="chips" aria-labelledby="suggestions-label">

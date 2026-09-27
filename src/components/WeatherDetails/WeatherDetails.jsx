@@ -1,11 +1,12 @@
+import { CLOUDS_SCALE, HUMIDITY_SCALE, PRESSURE_SCALE, VISIBILITY_SCALE } from '../../constants';
 import { Cloud, Droplets, Eye, Gauge, Umbrella } from 'lucide-react';
+import { describe, formatNumber } from '../../utils/format';
 
-import { CLOUDS_SCALE, HUMIDITY_SCALE, PRESSURE_SCALE, VISIBILITY_SCALE } from '../constants';
-import { describe, formatNumber } from '../utils/format';
-import LocationCard from './LocationCard';
-import MetricCard from './MetricCard';
-import SunCard from './SunCard';
-import WindCard from './WindCard';
+import LocationCard from '../LocationCard/LocationCard';
+import MetricCard from '../MetricCard/MetricCard';
+import WindCard from '../WindCard/WindCard';
+import SunCard from '../SunCard/SunCard';
+import './WeatherDetails.css';
 
 function precipitationHint(rain, snow) {
     if (rain !== undefined && snow !== undefined) return 'Lluvia y nieve en la última hora';

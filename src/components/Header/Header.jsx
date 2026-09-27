@@ -1,6 +1,7 @@
 import { CloudSun } from 'lucide-react';
 
-import SearchBar from './SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
+import './Header.css';
 
 export default function Header({ query, onQueryChange, onSubmit, isPending }) {
     return (

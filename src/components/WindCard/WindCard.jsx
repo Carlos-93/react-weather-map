@@ -1,8 +1,9 @@
+import { compassPoint, describe, toKmh } from '../../utils/format';
+import { WIND_SCALE } from '../../constants';
 import { Wind } from 'lucide-react';
 
-import { WIND_SCALE } from '../constants';
-import { compassPoint, describe, toKmh } from '../utils/format';
-import Card from './Card';
+import Card from '../Card/Card';
+import './WindCard.css';
 
 const TICKS = Array.from({ length: 36 }, (_, index) => index * 10);
 
@@ -14,9 +15,7 @@ function Compass({ degrees }) {
                 <line
                     key={angle}
                     className={angle % 90 ? 'compass__tick' : 'compass__tick compass__tick--major'}
-                    x1="60"
-                    y1="8"
-                    x2="60"
+                    x1="60" y1="8" x2="60"
                     y2={angle % 90 ? 13 : 16}
                     transform={`rotate(${angle} 60 60)`}
                 />

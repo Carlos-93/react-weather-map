@@ -1,5 +1,7 @@
-import { useEffect, useRef } from 'react';
 import { ArrowRight, LoaderCircle, Search } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+
+import './SearchBar.css';
 
 export default function SearchBar({ value, onChange, onSubmit, isPending }) {
     const inputRef = useRef(null);
@@ -19,16 +21,9 @@ export default function SearchBar({ value, onChange, onSubmit, isPending }) {
     return (
         <form className="search" role="search" onSubmit={onSubmit}>
             <Search className="search__icon" aria-hidden="true" />
-            <input
-                ref={inputRef}
-                className="search__input"
-                value={value}
+            <input ref={inputRef} className="search__input" value={value}
                 onChange={(event) => onChange(event.target.value)}
-                placeholder="Busca una ciudad…"
-                aria-label="Ciudad"
-                type="search"
-                enterKeyHint="search"
-                autoComplete="off"
+                placeholder="Busca una ciudad…" aria-label="Ciudad" type="search" enterKeyHint="search" autoComplete="off"
                 spellCheck={false}
             />
             <kbd className="search__shortcut" aria-hidden="true">/</kbd>

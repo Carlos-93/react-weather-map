@@ -1,0 +1,78 @@
+@layer components {
+  .wind .metric__value {
+    font-size: clamp(2.75rem, 2rem + 2vw, 4rem);
+  }
+
+  .wind__body {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+
+  .wind__readings {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+    min-inline-size: 0;
+    align-self: stretch;
+  }
+
+  .compass {
+    inline-size: clamp(7rem, 5rem + 8vw, 11rem);
+    overflow: visible;
+
+    & text {
+      fill: oklch(93% 0.01 250 / 0.82);
+      font-size: 10px;
+      font-weight: 600;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+  }
+
+  .compass__ring {
+    fill: oklch(100% 0 0 / 0.04);
+    stroke: oklch(100% 0 0 / 0.16);
+  }
+
+  .compass__tick {
+    stroke: oklch(100% 0 0 / 0.3);
+  }
+
+  .compass__tick--major {
+    stroke: oklch(100% 0 0 / 0.75);
+    stroke-width: 1.5;
+  }
+
+  .compass__needle {
+    fill: var(--accent);
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transform-box: view-box;
+    transform-origin: 60px 60px;
+    rotate: var(--rotation);
+    filter: drop-shadow(0 0 6px color-mix(in oklab, var(--accent) 60%, transparent));
+    animation: needle 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    animation-delay: calc(500ms + var(--index) * 70ms);
+  }
+
+  .compass__center {
+    fill: oklch(98% 0.005 250);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compass__needle {
+    animation: none;
+  }
+}
+
+@keyframes needle {
+  from {
+    rotate: calc(var(--rotation) - 140deg);
+  }
+}

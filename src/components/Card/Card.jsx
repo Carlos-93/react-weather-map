@@ -1,3 +1,5 @@
+import './Card.css';
+
 // Glass panel with a soft glow that follows the pointer; `index` staggers its entrance
 export default function Card({ icon: Icon, title, index = 0, className = '', children }) {
     function handlePointerMove(event) {

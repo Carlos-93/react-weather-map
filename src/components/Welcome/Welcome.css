@@ -1,0 +1,178 @@
+@layer components {
+  .welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    max-inline-size: 50rem;
+    margin-inline: auto;
+    padding-block: clamp(1.5rem, 8vh, 6rem) 2rem;
+    text-align: center;
+    text-shadow: 0 1px 3px oklch(0% 0 0 / 0.3), 0 2px 24px oklch(0% 0 0 / 0.45);
+
+    &>* {
+      animation: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
+  }
+
+  .welcome__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 1rem;
+    border: 1px solid oklch(100% 0 0 / 0.14);
+    border-radius: 999px;
+    background: oklch(20% 0.025 258 / 0.52);
+    backdrop-filter: blur(22px) saturate(160%);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-shadow: none;
+    color: oklch(93% 0.01 250 / 0.82);
+
+    /* Pulsing dot that signals live data */
+    &::before {
+      content: '';
+      inline-size: 0.5rem;
+      block-size: 0.5rem;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    }
+  }
+
+  .welcome__title {
+    font-size: clamp(2.6rem, 1.4rem + 5vw, 5.25rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    text-shadow: none;
+    background: linear-gradient(to bottom, oklch(98% 0.005 250) 35%, oklch(100% 0 0 / 0.72));
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 4px 24px oklch(0% 0 0 / 0.3));
+    animation-delay: 80ms;
+  }
+
+  .welcome__text {
+    max-inline-size: 36rem;
+    font-size: 1.1875rem;
+    color: oklch(93% 0.01 250 / 0.82);
+    text-wrap: pretty;
+    animation-delay: 160ms;
+  }
+
+  /* Not animated as a whole: a fading parent would switch off the chips' backdrop blur */
+  .welcome__suggestions {
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    margin-block-start: 0.75rem;
+    animation: none;
+  }
+
+  .welcome__label,
+  .welcome__tip {
+    font-size: 0.9375rem;
+    color: oklch(93% 0.01 250 / 0.82);
+  }
+
+  .welcome__label {
+    animation: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) 240ms backwards;
+  }
+
+  .welcome__tip {
+    animation-delay: 600ms;
+  }
+
+  @media (hover: none) {
+    .welcome__tip {
+      display: none;
+    }
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chip {
+    min-block-size: 2.75rem;
+    padding-inline: 1.25rem;
+    border: 1px solid oklch(100% 0 0 / 0.14);
+    border-radius: 999px;
+    background: oklch(20% 0.025 258 / 0.52);
+    box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.12), 0 2px 6px oklch(0% 0 0 / 0.18), 0 18px 40px -18px oklch(0% 0 0 / 0.55);
+    backdrop-filter: blur(22px) saturate(160%);
+    font-weight: 500;
+    text-shadow: none;
+    animation: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(320ms + var(--index) * 60ms);
+    transition:
+      translate 250ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 250ms,
+      border-color 250ms;
+
+    &:hover:not(:disabled) {
+      translate: 0 -2px;
+      border-color: oklch(100% 0 0 / 0.28);
+      background: oklch(26% 0.025 258 / 0.58);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+    }
+  }
+
+  .chip--location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block-end: 1.25rem;
+    border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+    background: color-mix(in oklab, var(--accent) 22%, oklch(20% 0.025 258 / 0.52));
+    animation-delay: 200ms;
+
+    & svg {
+      inline-size: 1.1rem;
+      block-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    /* While it looks up the location it stays fully visible, although disabled */
+    &:has(.spinner) {
+      opacity: 1;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome__eyebrow::before {
+    animation: none;
+  }
+
+  .welcome>*,
+  .chip {
+    animation-name: fade;
+  }
+
+  .chip:hover:not(:disabled) {
+    translate: none;
+  }
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 70%, transparent);
+  }
+
+  to {
+    box-shadow: 0 0 0 0.6rem transparent;
+  }
+}

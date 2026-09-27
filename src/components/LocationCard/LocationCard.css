@@ -1,0 +1,7 @@
+@layer components {
+  .card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}

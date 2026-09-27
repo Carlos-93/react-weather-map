@@ -1,9 +1,10 @@
+import { formatCityDate, formatCityTime, formatCountry, formatTemperature } from '../../utils/format';
+import { CLOUD_DESCRIPTIONS } from '../../constants';
 import { MapPin } from 'lucide-react';
 
-import { CLOUD_DESCRIPTIONS } from '../constants';
-import useNow from '../hooks/useNow';
-import { formatCityDate, formatCityTime, formatCountry, formatTemperature } from '../utils/format';
-import WeatherIcon from './WeatherIcon';
+import WeatherIcon from '../WeatherIcon/WeatherIcon';
+import useNow from '../../hooks/useNow';
+import './CurrentWeather.css';
 
 export default function CurrentWeather({ data, ref }) {
     const nowSeconds = Math.floor(useNow() / 1000);
@@ -16,9 +17,11 @@ export default function CurrentWeather({ data, ref }) {
                     <MapPin aria-hidden="true" />
                     {formatCountry(sys.country)}
                 </p>
+
                 <h1 id="city-name" className="current__city" ref={ref} tabIndex={-1}>
                     {name}
                 </h1>
+                
                 <p className="current__time">
                     {formatCityDate(nowSeconds, timezone)} · {formatCityTime(nowSeconds, timezone)} hora local
                 </p>
@@ -36,6 +39,7 @@ export default function CurrentWeather({ data, ref }) {
                 <p className="current__description">
                     {weather.map(({ id, description }) => CLOUD_DESCRIPTIONS[id] ?? description).join(', ')}
                 </p>
+                
                 {/* No min and max: OpenWeather's temp_min/temp_max are the spread across stations right now, not the day's range */}
                 <dl className="current__stats">
                     <div style={{ '--index': 0 }}>

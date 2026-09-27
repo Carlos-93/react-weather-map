@@ -1,0 +1,112 @@
+@layer components {
+  .search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-inline-size: 30rem;
+    margin-inline-start: auto;
+  }
+
+  .search__icon {
+    position: absolute;
+    inset-inline-start: 1rem;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    color: oklch(93% 0.01 250 / 0.82);
+    pointer-events: none;
+  }
+
+  .search__input {
+    inline-size: 100%;
+    min-block-size: 2.75rem;
+    padding-block: 0.5rem;
+    padding-inline: 2.75rem 5.25rem;
+    border: 1px solid oklch(100% 0 0 / 0.14);
+    border-radius: 999px;
+    background: oklch(100% 0 0 / 0.08);
+    transition:
+      background-color 250ms,
+      border-color 250ms;
+
+    &::placeholder {
+      color: oklch(93% 0.01 250 / 0.82);
+    }
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+
+    &:hover {
+      background: oklch(100% 0 0 / 0.12);
+    }
+
+    &:focus-visible {
+      outline-offset: 2px;
+      border-color: transparent;
+      background: oklch(100% 0 0 / 0.14);
+    }
+  }
+
+  .search__shortcut {
+    position: absolute;
+    inset-inline-end: 3.25rem;
+    pointer-events: none;
+    transition: opacity 250ms;
+  }
+
+  .search:focus-within .search__shortcut,
+  .search__input:not(:placeholder-shown)~.search__shortcut {
+    opacity: 0;
+  }
+
+  .search__button {
+    position: absolute;
+    inset-inline-end: 0.3rem;
+    display: grid;
+    place-items: center;
+    inline-size: 2.25rem;
+    block-size: 2.25rem;
+    border: 0;
+    border-radius: 50%;
+    background: var(--accent);
+    color: oklch(17% 0.03 258);
+    transition:
+      scale 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      background-color 250ms;
+
+    & svg {
+      inline-size: 1.15rem;
+      block-size: 1.15rem;
+    }
+
+    &:hover:not(:disabled) {
+      scale: 1.08;
+    }
+
+    &:active:not(:disabled) {
+      scale: 0.94;
+    }
+  }
+
+  @media (hover: none) {
+    .search__shortcut {
+      display: none;
+    }
+
+    .search__input {
+      padding-inline-end: 3.25rem;
+    }
+  }
+
+  @media (pointer: coarse) {
+    .search__input {
+      min-block-size: 3rem;
+    }
+
+    .search__button {
+      inline-size: 2.5rem;
+      block-size: 2.5rem;
+    }
+  }
+}

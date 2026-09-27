@@ -1,6 +1,7 @@
+import { WEATHER_ICONS } from '../../constants';
 import { useEffect, useRef } from 'react';
 
-import { WEATHER_ICONS } from '../constants';
+import './WeatherIcon.css';
 
 // Inline SVG instead of <img>: its SMIL animations ignore CSS, so reduced motion pauses them from script
 export default function WeatherIcon({ code, className = '' }) {

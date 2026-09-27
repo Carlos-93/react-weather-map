@@ -1,0 +1,33 @@
+@layer components {
+  .external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-block-size: 2.5rem;
+    padding-inline: 1rem;
+    border: 1px solid oklch(100% 0 0 / 0.14);
+    border-radius: 999px;
+    background: oklch(100% 0 0 / 0.08);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      background-color 250ms,
+      border-color 250ms;
+
+    & svg {
+      inline-size: 1rem;
+      block-size: 1rem;
+      transition: translate 250ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    &:hover {
+      border-color: oklch(100% 0 0 / 0.28);
+      background: oklch(100% 0 0 / 0.16);
+    }
+
+    &:hover svg {
+      translate: 2px -2px;
+    }
+  }
+}
