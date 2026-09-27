@@ -8,9 +8,10 @@ A React web app that shows the current weather for any city, using the [OpenWeat
 
 ## Features
 
-- Search by city: type the name and press Enter.
-- Temperature, weather description, feels-like temperature, humidity and wind speed in km/h.
-- Background that matches the weather: clear, clouds, rain, snow, fog, haze or thunderstorm.
+- Search by city (press `/` from anywhere to jump to the search box), use your current location or pick one of the suggested cities.
+- The current weather: temperature, feels like, description and icon, wind speed, gusts and direction on a compass, humidity, pressure, visibility, cloudiness, rain or snow in the last hour, sunrise, sunset and daylight on the sun's arc, coordinates, time zone, local time and when the data was measured.
+- Full-screen background that matches the weather, with ambient effects: rain, snow, lightning, drifting mist, a sun glow or stars at night.
+- Glass cards, staggered entrance animations and cross-fades between searches (View Transitions API), all reduced to simple fades when the system asks for reduced motion.
 - Notice when the city does not exist or the request fails.
 
 ## Tech stack
@@ -18,7 +19,8 @@ A React web app that shows the current weather for any city, using the [OpenWeat
 - [React 19](https://react.dev) with [Vite](https://vite.dev)
 - Native `fetch` for API requests
 - [sonner](https://sonner.emilkowal.ski) for notices
-- Plain CSS
+- [Lucide](https://lucide.dev) icons and animated [Meteocons](https://github.com/basmilius/meteocons-poc) weather icons by Bas Milius (MIT)
+- Plain CSS with cascade layers, container queries and native nesting
 - [Vitest](https://vitest.dev) and [Testing Library](https://testing-library.com) for tests, [Oxlint](https://oxc.rs/docs/guide/usage/linter) for linting
 
 ## Getting started

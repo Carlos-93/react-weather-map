@@ -1,39 +1,106 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
+import { flushSync } from 'react-dom';
 import { Toaster, toast } from 'sonner';
 
-import SearchBar from './components/SearchBar';
-import WeatherInfo from './components/WeatherInfo';
+import Backdrop from './components/Backdrop';
+import CurrentWeather from './components/CurrentWeather';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import WeatherDetails from './components/WeatherDetails';
+import Welcome from './components/Welcome';
 import { WEATHER_CONDITIONS } from './constants';
+import { formatTemperature } from './utils/format';
+
+// Cross-fades the whole page to the new state where the View Transitions API exists
+function showWithTransition(update) {
+  if (!document.startViewTransition) return update();
+  document.startViewTransition(() => flushSync(update));
+}
+
+// Wraps the callback-based Geolocation API; a cached position up to 10 minutes old is fine for the weather
+const getPosition = () => new Promise((resolve, reject) => {
+  navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 10_000, maximumAge: 600_000 });
+});
 
 export default function App() {
   const [data, setData] = useState(null);
   const [query, setQuery] = useState('');
+  const [isPending, startTransition] = useTransition();
+  // A separate transition tells the location button apart from a city search
+  const [isLocating, startLocating] = useTransition();
+  const isBusy = isPending || isLocating;
+  const headingRef = useRef(null);
 
-  // Method to handle the search form submission, fetch weather data from the API, and update the state accordingly
-  async function searchWeather(event) {
-    event.preventDefault();
-    const city = query.trim();
-    if (!city) return;
+  const condition = WEATHER_CONDITIONS[data?.weather[0].main] ?? 'default';
+  const period = data?.weather[0].icon.endsWith('n') ? 'night' : 'day';
 
+  useEffect(() => {
+    document.title = data ? `${data.name}, ${formatTemperature(data.main.temp)} · Tiempo y Radar` : 'Tiempo y Radar';
+    // A clicked suggestion disappears with the welcome screen, so focus moves to the results
+    if (data && document.activeElement === document.body) headingRef.current?.focus();
+  }, [data]);
+
+  // Method to fetch weather data for { city } or { lat, lon } and update the state accordingly
+  async function fetchWeather(place) {
     try {
-      const response = await fetch(`/api/weather?${new URLSearchParams({ city })}`);
+      const response = await fetch(`/api/weather?${new URLSearchParams(place)}`);
       if (response.status === 404) {
-        toast.error(`No se ha encontrado la ciudad "${city}"`);
+        toast.error(`No se ha encontrado la ciudad "${place.city}"`);
         return;
       }
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      setData(await response.json());
-      setQuery('');
+      const result = await response.json();
+      showWithTransition(() => {
+        setData(result);
+        setQuery('');
+      });
     } catch {
       toast.error('No se ha podido cargar el tiempo, inténtalo más tarde');
     }
   }
 
+  function searchWeather(city) {
+    startTransition(() => fetchWeather({ city }));
+  }
+
+  // The browser only asks for the location permission here, after a click, never on load
+  function searchMyLocation() {
+    startLocating(async () => {
+      try {
+        const { coords } = await getPosition();
+        // Two decimals (about 1 km) are enough for the weather and share less of the user's position
+        await fetchWeather({ lat: coords.latitude.toFixed(2), lon: coords.longitude.toFixed(2) });
+      } catch (error) {
+        toast.error(error.code === GeolocationPositionError.PERMISSION_DENIED
+          ? 'Permite el acceso a tu ubicación para ver su tiempo'
+          : 'No se ha podido obtener tu ubicación');
+      }
+    });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const city = query.trim();
+    if (city && !isBusy) searchWeather(city);
+  }
+
   return (
-    <main className={`app ${WEATHER_CONDITIONS[data?.weather[0].main] ?? 'default'}`}>
-      <SearchBar value={query} onChange={setQuery} onSubmit={searchWeather} />
-      {data && <WeatherInfo data={data} />}
-      <Toaster richColors position="top-right" />
-    </main>
+    <div className="app" data-weather={condition} data-period={period}>
+      <a className="skip-link" href="#main">Saltar al contenido</a>
+      <Backdrop weather={condition} code={data?.weather[0].id} period={period} />
+      <Header query={query} onQueryChange={setQuery} onSubmit={handleSubmit} isPending={isPending} />
+      <main id="main" className="main" aria-busy={isBusy}>
+        {data ? (
+          <div className="weather" key={`${data.id}-${data.dt}`}>
+            <CurrentWeather data={data} ref={headingRef} />
+            <WeatherDetails data={data} />
+          </div>
+        ) : (
+          <Welcome onSelect={searchWeather} onLocate={searchMyLocation} isPending={isBusy} isLocating={isLocating} />
+        )}
+      </main>
+      <Footer />
+      <Toaster theme="dark" richColors position="top-center" offset={{ top: '6rem' }} mobileOffset={{ top: '6rem' }} />
+    </div>
   );
 }
