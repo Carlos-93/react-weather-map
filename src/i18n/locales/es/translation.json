@@ -1,0 +1,156 @@
+{
+  "app": {
+    "skipLink": "Saltar al contenido"
+  },
+  "language": {
+    "select": "Seleccionar idioma"
+  },
+  "search": {
+    "placeholder": "Busca una ciudad…",
+    "label": "Ciudad",
+    "submit": "Buscar",
+    "searching": "Buscando el tiempo…"
+  },
+  "welcome": {
+    "eyebrow": "El tiempo actual en todo el mundo",
+    "title": "El tiempo de cualquier ciudad, al instante",
+    "text": "Temperatura, viento, humedad, presión, visibilidad y horas de sol: todo lo que está pasando ahora mismo, de un vistazo.",
+    "useLocation": "Usar mi ubicación",
+    "locating": "Buscando tu ubicación…",
+    "suggestions": "O prueba con",
+    "tip": "Pulsa <kbd>/</kbd> en cualquier parte de la página para ir al buscador"
+  },
+  "cities": {
+    "madrid": "Madrid",
+    "barcelona": "Barcelona",
+    "london": "Londres",
+    "newYork": "Nueva York",
+    "tokyo": "Tokio",
+    "buenosAires": "Buenos Aires"
+  },
+  "current": {
+    "localTime": "{{date}} · {{time}} hora local",
+    "temperature": "Temperatura actual:",
+    "feelsLike": "Sensación"
+  },
+  "wind": {
+    "title": "Viento",
+    "direction": "Dirección",
+    "from": "Del {{point}} · {{degrees}}°",
+    "gusts": "Rachas"
+  },
+  "sun": {
+    "title": "Sol",
+    "sunrise": "Amanecer",
+    "sunset": "Atardecer",
+    "daylight": "Horas de luz",
+    "risesIn": "Amanece en {{duration}}",
+    "lightLeft": "Quedan {{duration}} de luz",
+    "hasSet": "El sol ya se ha puesto"
+  },
+  "humidity": {
+    "title": "Humedad"
+  },
+  "pressure": {
+    "title": "Presión"
+  },
+  "visibility": {
+    "title": "Visibilidad"
+  },
+  "clouds": {
+    "title": "Nubosidad"
+  },
+  "precipitation": {
+    "title": "Precipitación",
+    "rainAndSnow": "Lluvia y nieve en la última hora",
+    "rain": "Lluvia en la última hora",
+    "snow": "Nieve en la última hora",
+    "none": "Sin precipitación en la última hora",
+    "rainLabel": "Lluvia",
+    "snowLabel": "Nieve"
+  },
+  "location": {
+    "title": "Ubicación",
+    "coordinates": "Coordenadas",
+    "timeZone": "Zona horaria",
+    "measured": "Datos medidos",
+    "map": "Ver en el mapa",
+    "openWeather": "Ver en OpenWeather"
+  },
+  "scales": {
+    "wind": {
+      "calm": "Calma",
+      "lightAir": "Ventolina",
+      "lightBreeze": "Brisa muy débil",
+      "gentleBreeze": "Brisa débil",
+      "moderateBreeze": "Brisa moderada",
+      "freshBreeze": "Brisa fresca",
+      "strongBreeze": "Brisa fuerte",
+      "nearGale": "Viento fuerte",
+      "gale": "Temporal",
+      "strongGale": "Temporal fuerte",
+      "storm": "Temporal duro",
+      "violentStorm": "Temporal muy duro",
+      "hurricane": "Huracán"
+    },
+    "humidity": {
+      "dry": "Ambiente seco",
+      "comfortable": "Humedad agradable",
+      "humid": "Ambiente húmedo",
+      "veryHumid": "Muy húmedo"
+    },
+    "pressure": {
+      "low": "Presión baja",
+      "normal": "Presión normal",
+      "high": "Presión alta"
+    },
+    "visibility": {
+      "veryPoor": "Muy reducida",
+      "poor": "Reducida",
+      "moderate": "Moderada",
+      "good": "Buena",
+      "excellent": "Excelente"
+    },
+    "clouds": {
+      "clear": "Cielo despejado",
+      "few": "Poco nuboso",
+      "partly": "Intervalos nubosos",
+      "mostly": "Nuboso",
+      "overcast": "Cubierto"
+    }
+  },
+  "compass": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSO",
+    "SO",
+    "OSO",
+    "O",
+    "ONO",
+    "NO",
+    "NNO"
+  ],
+  "footer": {
+    "tagline": "El tiempo actual de cualquier ciudad del mundo.",
+    "nav": "Enlaces externos",
+    "data": "Datos de OpenWeather",
+    "code": "Código en GitHub",
+    "portfolio": "Portfolio"
+  },
+  "externalLink": {
+    "newTab": "(se abre en una pestaña nueva)"
+  },
+  "errors": {
+    "notFound": "No se ha encontrado la ciudad \"{{city}}\"",
+    "failed": "No se ha podido cargar el tiempo, inténtalo más tarde",
+    "locationDenied": "Permite el acceso a tu ubicación para ver su tiempo",
+    "locationFailed": "No se ha podido obtener tu ubicación"
+  }
+}

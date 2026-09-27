@@ -2,7 +2,7 @@
 
 # Tiempo y Radar
 
-A React web app that shows the current weather for any city, using the [OpenWeather Current Weather API](https://openweathermap.org/current). The interface is in Spanish.
+A React web app that shows the current weather for any city, using the [OpenWeather Current Weather API](https://openweathermap.org/current). The interface is available in Spanish, Catalan, English, German, Italian and French.
 
 **Demo:** https://weather-radar-map.vercel.app
 
@@ -12,6 +12,7 @@ A React web app that shows the current weather for any city, using the [OpenWeat
 - The current weather: temperature, feels like, description and icon, wind speed, gusts and direction on a compass, humidity, pressure, visibility, cloudiness, rain or snow in the last hour, sunrise, sunset and daylight on the sun's arc, coordinates, time zone, local time and when the data was measured.
 - Full-screen background that matches the weather, with ambient effects: rain, snow, lightning, drifting mist, a sun glow or stars at night.
 - Glass cards, staggered entrance animations and cross-fades between searches (View Transitions API), all reduced to simple fades when the system asks for reduced motion.
+- Six languages with a flag selector: Spanish, Catalan, English, German, Italian and French. Dates, numbers, country names and OpenWeather's weather descriptions follow the chosen language. The first visit uses the browser language (Spanish if it is not one of the six), and a language picked by hand is remembered.
 - Notice when the city does not exist or the request fails.
 
 ## Tech stack
@@ -19,6 +20,7 @@ A React web app that shows the current weather for any city, using the [OpenWeat
 - [React 19](https://react.dev) with [Vite](https://vite.dev)
 - Native `fetch` for API requests
 - [sonner](https://sonner.emilkowal.ski) for notices
+- [i18next](https://www.i18next.com) with [react-i18next](https://react.i18next.com) for translations
 - [Lucide](https://lucide.dev) icons and animated [Meteocons](https://github.com/basmilius/meteocons-poc) weather icons by Bas Milius (MIT)
 - Plain CSS with cascade layers, container queries and native nesting
 - [Vitest](https://vitest.dev) and [Testing Library](https://testing-library.com) for tests, [Oxlint](https://oxc.rs/docs/guide/usage/linter) for linting

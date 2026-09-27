@@ -1,0 +1,156 @@
+{
+  "app": {
+    "skipLink": "Skip to content"
+  },
+  "language": {
+    "select": "Select language"
+  },
+  "search": {
+    "placeholder": "Search for a city…",
+    "label": "City",
+    "submit": "Search",
+    "searching": "Getting the weather…"
+  },
+  "welcome": {
+    "eyebrow": "Current weather around the world",
+    "title": "The weather in any city, instantly",
+    "text": "Temperature, wind, humidity, pressure, visibility and daylight hours: everything happening right now, at a glance.",
+    "useLocation": "Use my location",
+    "locating": "Finding your location…",
+    "suggestions": "Or try",
+    "tip": "Press <kbd>/</kbd> anywhere on the page to jump to the search box"
+  },
+  "cities": {
+    "madrid": "Madrid",
+    "barcelona": "Barcelona",
+    "london": "London",
+    "newYork": "New York",
+    "tokyo": "Tokyo",
+    "buenosAires": "Buenos Aires"
+  },
+  "current": {
+    "localTime": "{{date}} · {{time}} local time",
+    "temperature": "Current temperature:",
+    "feelsLike": "Feels like"
+  },
+  "wind": {
+    "title": "Wind",
+    "direction": "Direction",
+    "from": "From {{point}} · {{degrees}}°",
+    "gusts": "Gusts"
+  },
+  "sun": {
+    "title": "Sun",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "daylight": "Daylight",
+    "risesIn": "Sunrise in {{duration}}",
+    "lightLeft": "{{duration}} of daylight left",
+    "hasSet": "The sun has already set"
+  },
+  "humidity": {
+    "title": "Humidity"
+  },
+  "pressure": {
+    "title": "Pressure"
+  },
+  "visibility": {
+    "title": "Visibility"
+  },
+  "clouds": {
+    "title": "Cloud cover"
+  },
+  "precipitation": {
+    "title": "Precipitation",
+    "rainAndSnow": "Rain and snow in the last hour",
+    "rain": "Rain in the last hour",
+    "snow": "Snow in the last hour",
+    "none": "No precipitation in the last hour",
+    "rainLabel": "Rain",
+    "snowLabel": "Snow"
+  },
+  "location": {
+    "title": "Location",
+    "coordinates": "Coordinates",
+    "timeZone": "Time zone",
+    "measured": "Measured",
+    "map": "View on the map",
+    "openWeather": "View on OpenWeather"
+  },
+  "scales": {
+    "wind": {
+      "calm": "Calm",
+      "lightAir": "Light air",
+      "lightBreeze": "Light breeze",
+      "gentleBreeze": "Gentle breeze",
+      "moderateBreeze": "Moderate breeze",
+      "freshBreeze": "Fresh breeze",
+      "strongBreeze": "Strong breeze",
+      "nearGale": "Near gale",
+      "gale": "Gale",
+      "strongGale": "Strong gale",
+      "storm": "Storm",
+      "violentStorm": "Violent storm",
+      "hurricane": "Hurricane"
+    },
+    "humidity": {
+      "dry": "Dry air",
+      "comfortable": "Comfortable humidity",
+      "humid": "Humid air",
+      "veryHumid": "Very humid"
+    },
+    "pressure": {
+      "low": "Low pressure",
+      "normal": "Normal pressure",
+      "high": "High pressure"
+    },
+    "visibility": {
+      "veryPoor": "Very poor",
+      "poor": "Poor",
+      "moderate": "Moderate",
+      "good": "Good",
+      "excellent": "Excellent"
+    },
+    "clouds": {
+      "clear": "Clear sky",
+      "few": "Few clouds",
+      "partly": "Partly cloudy",
+      "mostly": "Mostly cloudy",
+      "overcast": "Overcast"
+    }
+  },
+  "compass": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+  ],
+  "footer": {
+    "tagline": "The current weather in any city in the world.",
+    "nav": "External links",
+    "data": "Data by OpenWeather",
+    "code": "Code on GitHub",
+    "portfolio": "Portfolio"
+  },
+  "externalLink": {
+    "newTab": "(opens in a new tab)"
+  },
+  "errors": {
+    "notFound": "City \"{{city}}\" not found",
+    "failed": "Couldn't load the weather, please try again later",
+    "locationDenied": "Allow access to your location to see its weather",
+    "locationFailed": "Couldn't get your location"
+  }
+}

@@ -1,9 +1,12 @@
 import { createRoot } from 'react-dom/client';
+import { i18nReady } from './i18n/config';
 import { StrictMode } from 'react';
 
-// Before App: index.css declares the cascade layer order that every component stylesheet relies on
-import './index.css';
 import App from './App';
+import './index.css';
+
+// Waits for the saved language's translations, so the page never shows Spanish first
+await i18nReady;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

@@ -1,4 +1,5 @@
 import { compassPoint, describe, toKmh } from '../../utils/format';
+import { useTranslation } from 'react-i18next';
 import { WIND_SCALE } from '../../constants';
 import { Wind } from 'lucide-react';
 
@@ -7,7 +8,8 @@ import './WindCard.css';
 
 const TICKS = Array.from({ length: 36 }, (_, index) => index * 10);
 
-function Compass({ degrees }) {
+// `points` is the translated compass rose: north, east, south and west are points 0, 4, 8 and 12
+function Compass({ degrees, points }) {
     return (
         <svg className="compass" viewBox="0 0 120 120" aria-hidden="true">
             <circle className="compass__ring" cx="60" cy="60" r="54" />
@@ -20,10 +22,10 @@ function Compass({ degrees }) {
                     transform={`rotate(${angle} 60 60)`}
                 />
             ))}
-            <text x="60" y="26">N</text>
-            <text x="95" y="61">E</text>
-            <text x="60" y="96">S</text>
-            <text x="25" y="61">O</text>
+            <text x="60" y="26">{points[0]}</text>
+            <text x="95" y="61">{points[4]}</text>
+            <text x="60" y="96">{points[8]}</text>
+            <text x="25" y="61">{points[12]}</text>
             {/* The arrow points where the wind blows to, opposite the direction it comes from */}
             <g className="compass__needle" style={{ '--rotation': `${degrees + 180}deg` }}>
                 <path d="M60 30 L67 52 L60 48 L53 52 Z" />
@@ -35,31 +37,33 @@ function Compass({ degrees }) {
 }
 
 export default function WindCard({ wind, index }) {
+    const { t } = useTranslation();
+    const points = t('compass', { returnObjects: true });
     const speed = toKmh(wind.speed);
 
     return (
-        <Card icon={Wind} title="Viento" index={index} className="card--wide wind">
+        <Card icon={Wind} title={t('wind.title')} index={index} className="card--wide wind">
             <div className="wind__body">
                 <div className="wind__readings">
                     <p className="metric">
                         <span className="metric__value">{speed}</span>
                         <span className="metric__unit">km/h</span>
                     </p>
-                    <p className="card__hint">{describe(speed, WIND_SCALE)}</p>
+                    <p className="card__hint">{t(`scales.wind.${describe(speed, WIND_SCALE)}`)}</p>
                     <dl className="facts">
                         <div>
-                            <dt>Dirección</dt>
-                            <dd>Del {compassPoint(wind.deg)} · {wind.deg}°</dd>
+                            <dt>{t('wind.direction')}</dt>
+                            <dd>{t('wind.from', { point: compassPoint(wind.deg, points), degrees: wind.deg })}</dd>
                         </div>
                         {wind.gust !== undefined && (
                             <div>
-                                <dt>Rachas</dt>
+                                <dt>{t('wind.gusts')}</dt>
                                 <dd>{toKmh(wind.gust)} km/h</dd>
                             </div>
                         )}
                     </dl>
                 </div>
-                <Compass degrees={wind.deg} />
+                <Compass degrees={wind.deg} points={points} />
             </div>
         </Card>
     );

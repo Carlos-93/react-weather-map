@@ -1,0 +1,156 @@
+{
+  "app": {
+    "skipLink": "Vai al contenuto"
+  },
+  "language": {
+    "select": "Seleziona la lingua"
+  },
+  "search": {
+    "placeholder": "Cerca una città…",
+    "label": "Città",
+    "submit": "Cerca",
+    "searching": "Caricamento del meteo…"
+  },
+  "welcome": {
+    "eyebrow": "Il meteo attuale in tutto il mondo",
+    "title": "Il meteo di qualsiasi città, all'istante",
+    "text": "Temperatura, vento, umidità, pressione, visibilità e ore di sole: tutto quello che sta succedendo adesso, a colpo d'occhio.",
+    "useLocation": "Usa la mia posizione",
+    "locating": "Ricerca della tua posizione…",
+    "suggestions": "Oppure prova con",
+    "tip": "Premi <kbd>/</kbd> in qualsiasi punto della pagina per andare alla ricerca"
+  },
+  "cities": {
+    "madrid": "Madrid",
+    "barcelona": "Barcellona",
+    "london": "Londra",
+    "newYork": "New York",
+    "tokyo": "Tokyo",
+    "buenosAires": "Buenos Aires"
+  },
+  "current": {
+    "localTime": "{{date}} · {{time}} ora locale",
+    "temperature": "Temperatura attuale:",
+    "feelsLike": "Percepita"
+  },
+  "wind": {
+    "title": "Vento",
+    "direction": "Direzione",
+    "from": "Da {{point}} · {{degrees}}°",
+    "gusts": "Raffiche"
+  },
+  "sun": {
+    "title": "Sole",
+    "sunrise": "Alba",
+    "sunset": "Tramonto",
+    "daylight": "Ore di luce",
+    "risesIn": "Il sole sorge tra {{duration}}",
+    "lightLeft": "Restano {{duration}} di luce",
+    "hasSet": "Il sole è già tramontato"
+  },
+  "humidity": {
+    "title": "Umidità"
+  },
+  "pressure": {
+    "title": "Pressione"
+  },
+  "visibility": {
+    "title": "Visibilità"
+  },
+  "clouds": {
+    "title": "Nuvolosità"
+  },
+  "precipitation": {
+    "title": "Precipitazioni",
+    "rainAndSnow": "Pioggia e neve nell'ultima ora",
+    "rain": "Pioggia nell'ultima ora",
+    "snow": "Neve nell'ultima ora",
+    "none": "Nessuna precipitazione nell'ultima ora",
+    "rainLabel": "Pioggia",
+    "snowLabel": "Neve"
+  },
+  "location": {
+    "title": "Posizione",
+    "coordinates": "Coordinate",
+    "timeZone": "Fuso orario",
+    "measured": "Dati misurati",
+    "map": "Vedi sulla mappa",
+    "openWeather": "Vedi su OpenWeather"
+  },
+  "scales": {
+    "wind": {
+      "calm": "Calma",
+      "lightAir": "Bava di vento",
+      "lightBreeze": "Brezza leggera",
+      "gentleBreeze": "Brezza tesa",
+      "moderateBreeze": "Vento moderato",
+      "freshBreeze": "Vento teso",
+      "strongBreeze": "Vento fresco",
+      "nearGale": "Vento forte",
+      "gale": "Burrasca",
+      "strongGale": "Burrasca forte",
+      "storm": "Tempesta",
+      "violentStorm": "Tempesta violenta",
+      "hurricane": "Uragano"
+    },
+    "humidity": {
+      "dry": "Aria secca",
+      "comfortable": "Umidità gradevole",
+      "humid": "Aria umida",
+      "veryHumid": "Molto umido"
+    },
+    "pressure": {
+      "low": "Pressione bassa",
+      "normal": "Pressione normale",
+      "high": "Pressione alta"
+    },
+    "visibility": {
+      "veryPoor": "Molto ridotta",
+      "poor": "Ridotta",
+      "moderate": "Moderata",
+      "good": "Buona",
+      "excellent": "Eccellente"
+    },
+    "clouds": {
+      "clear": "Cielo sereno",
+      "few": "Poco nuvoloso",
+      "partly": "Parzialmente nuvoloso",
+      "mostly": "Nuvoloso",
+      "overcast": "Coperto"
+    }
+  },
+  "compass": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSO",
+    "SO",
+    "OSO",
+    "O",
+    "ONO",
+    "NO",
+    "NNO"
+  ],
+  "footer": {
+    "tagline": "Il meteo attuale di qualsiasi città del mondo.",
+    "nav": "Link esterni",
+    "data": "Dati di OpenWeather",
+    "code": "Codice su GitHub",
+    "portfolio": "Portfolio"
+  },
+  "externalLink": {
+    "newTab": "(si apre in una nuova scheda)"
+  },
+  "errors": {
+    "notFound": "Città \"{{city}}\" non trovata",
+    "failed": "Impossibile caricare il meteo, riprova più tardi",
+    "locationDenied": "Consenti l'accesso alla tua posizione per vederne il meteo",
+    "locationFailed": "Impossibile ottenere la tua posizione"
+  }
+}

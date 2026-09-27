@@ -1,6 +1,6 @@
 # Tiempo y Radar
 
-> Single-page web app that shows the current weather for any city, using the OpenWeather Current Weather API. Built with React by Carlos Araujo Galván. The interface is in Spanish (Spain).
+> Single-page web app that shows the current weather for any city, using the OpenWeather Current Weather API. Built with React by Carlos Araujo Galván. The interface is available in Spanish, Catalan, English, German, Italian and French: it starts in the browser language (Spanish if it is not one of these) and can be changed with the flag button in the header.
 
 Type a city name in the search box ("Busca una ciudad…") and press Enter, use the "Usar mi ubicación" button (the browser asks for location permission), or pick one of the suggested cities. The page shows the city and country with its local date and time, the temperature (°C) with feels-like, a description and icon of the weather condition, and cards for wind (speed and gusts in km/h, direction on a compass), sunrise, sunset and daylight hours, humidity (%), pressure (hPa, at sea level), visibility (km), cloudiness (%), rain or snow in the last hour (mm), and the location (coordinates, time zone and when the data was measured, with links to a map and to OpenWeather). The background photo and its ambient effects change with the condition (clear, clouds, rain, snow, fog, haze or thunderstorm) and with day or night. Unknown cities show a "No se ha encontrado la ciudad" notice.
 

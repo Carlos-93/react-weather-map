@@ -1,33 +1,39 @@
-import { COMPASS_POINTS } from '../constants';
+import { LANGUAGES } from '../constants';
 
-const LOCALE = 'es-ES';
+const toLocale = (language) => LANGUAGES.find(({ code }) => code === language)?.locale ?? 'es-ES';
 
-const numberFormat = new Intl.NumberFormat(LOCALE, { maximumFractionDigits: 1 });
-const coordinateFormat = new Intl.NumberFormat(LOCALE, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const relativeFormat = new Intl.RelativeTimeFormat(LOCALE, { numeric: 'auto' });
-const regionNames = new Intl.DisplayNames(LOCALE, { type: 'region' });
+// Intl formatters are costly to build, so each one is created once per language and options
+const formatters = new Map();
+function formatter(Formatter, language, options) {
+  const key = `${Formatter.name}|${language}|${JSON.stringify(options)}`;
+  if (!formatters.has(key)) formatters.set(key, new Formatter(toLocale(language), options));
+  return formatters.get(key);
+}
+
 // City times are shifted by their UTC offset and then printed as UTC
-const timeFormat = new Intl.DateTimeFormat(LOCALE, { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
-const dateFormat = new Intl.DateTimeFormat(LOCALE, { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' });
-
 const toCityDate = (unixSeconds, offsetSeconds) => new Date((unixSeconds + offsetSeconds) * 1000);
 
 export const formatTemperature = (celsius) => `${Math.round(celsius)}°`;
 
-export const formatNumber = (value) => numberFormat.format(value);
+export const formatNumber = (value, language) => formatter(Intl.NumberFormat, language, { maximumFractionDigits: 1 }).format(value);
 
 export const toKmh = (metersPerSecond) => Math.round(metersPerSecond * 3.6);
 
-export const compassPoint = (degrees) => COMPASS_POINTS[Math.round(degrees / 22.5) % 16];
+// `points` is the translated 16-point compass rose, starting at north
+export const compassPoint = (degrees, points) => points[Math.round(degrees / 22.5) % 16];
 
-// Returns the label of the first [limit, label] pair whose limit is above the value
+// Returns the key of the first [limit, key] pair whose limit is above the value
 export const describe = (value, scale) => scale.find(([limit]) => value < limit)[1];
 
-export const formatCityTime = (unixSeconds, offsetSeconds) => timeFormat.format(toCityDate(unixSeconds, offsetSeconds));
+export const formatCityTime = (unixSeconds, offsetSeconds, language) =>
+  formatter(Intl.DateTimeFormat, language, { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' })
+    .format(toCityDate(unixSeconds, offsetSeconds));
 
-export const formatCityDate = (unixSeconds, offsetSeconds) => dateFormat.format(toCityDate(unixSeconds, offsetSeconds));
+export const formatCityDate = (unixSeconds, offsetSeconds, language) =>
+  formatter(Intl.DateTimeFormat, language, { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' })
+    .format(toCityDate(unixSeconds, offsetSeconds));
 
-export const formatCountry = (code) => (code ? regionNames.of(code) : '');
+export const formatCountry = (code, language) => (code ? formatter(Intl.DisplayNames, language, { type: 'region' }).of(code) : '');
 
 export function formatDuration(seconds) {
   const minutes = Math.round(seconds / 60);
@@ -43,15 +49,19 @@ export function formatUtcOffset(offsetSeconds) {
   return `UTC${sign}${Math.floor(totalMinutes / 60)}${minutes ? `:${String(minutes).padStart(2, '0')}` : ''}`;
 }
 
-export function formatCoordinates({ lat, lon }) {
-  const latitude = `${coordinateFormat.format(Math.abs(lat))}° ${lat < 0 ? 'S' : 'N'}`;
-  const longitude = `${coordinateFormat.format(Math.abs(lon))}° ${lon < 0 ? 'O' : 'E'}`;
+// North, east, south and west are points 0, 4, 8 and 12 of the translated compass rose
+export function formatCoordinates({ lat, lon }, language, points) {
+  const coordinate = formatter(Intl.NumberFormat, language, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const latitude = `${coordinate.format(Math.abs(lat))}° ${lat < 0 ? points[8] : points[0]}`;
+  const longitude = `${coordinate.format(Math.abs(lon))}° ${lon < 0 ? points[12] : points[4]}`;
   return `${latitude}, ${longitude}`;
 }
 
-export function formatRelativeTime(unixSeconds, now) {
+export function formatRelativeTime(unixSeconds, now, language) {
+  const relative = formatter(Intl.RelativeTimeFormat, language, { numeric: 'auto' });
   const minutes = Math.round((unixSeconds * 1000 - now) / 60_000);
-  if (minutes === 0) return 'ahora mismo';
-  if (Math.abs(minutes) < 60) return relativeFormat.format(minutes, 'minute');
-  return relativeFormat.format(Math.round(minutes / 60), 'hour');
+  // "now" in every language, instead of "this minute"
+  if (minutes === 0) return relative.format(0, 'second');
+  if (Math.abs(minutes) < 60) return relative.format(minutes, 'minute');
+  return relative.format(Math.round(minutes / 60), 'hour');
 }

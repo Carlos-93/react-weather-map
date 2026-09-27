@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, useTransition } from 'react';
+import { useEffect, useEffectEvent, useRef, useState, useTransition } from 'react';
+import { useTranslation } from 'react-i18next';
 import { flushSync } from 'react-dom';
 import { Toaster, toast } from 'sonner';
 
@@ -23,6 +24,8 @@ const getPosition = () => new Promise((resolve, reject) => {
 });
 
 export default function App() {
+  const { t, i18n } = useTranslation();
+  const language = i18n.resolvedLanguage;
   const [data, setData] = useState(null);
   const [query, setQuery] = useState('');
   const [isPending, startTransition] = useTransition();
@@ -30,6 +33,8 @@ export default function App() {
   const [isLocating, startLocating] = useTransition();
   const isBusy = isPending || isLocating;
   const headingRef = useRef(null);
+  // Last place shown, to load it again when the language changes
+  const placeRef = useRef(null);
 
   const condition = WEATHER_CONDITIONS[data?.weather[0].main] ?? 'default';
   const period = data?.weather[0].icon.endsWith('n') ? 'night' : 'day';
@@ -41,23 +46,36 @@ export default function App() {
   }, [data]);
 
   // Method to fetch weather data for { city } or { lat, lon } and update the state accordingly
-  async function fetchWeather(place) {
+  async function fetchWeather(place, { keepQuery = false } = {}) {
     try {
-      const response = await fetch(`/api/weather?${new URLSearchParams(place)}`);
+      // OpenWeather writes the weather description in the requested language
+      const response = await fetch(`/api/weather?${new URLSearchParams({ ...place, lang: language })}`);
       if (response.status === 404) {
-        toast.error(`No se ha encontrado la ciudad "${place.city}"`);
+        toast.error(t('errors.notFound', { city: place.city }));
         return;
       }
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const result = await response.json();
+      placeRef.current = place;
       showWithTransition(() => {
         setData(result);
-        setQuery('');
+        if (!keepQuery) setQuery('');
       });
     } catch {
-      toast.error('No se ha podido cargar el tiempo, inténtalo más tarde');
+      toast.error(t('errors.failed'));
     }
   }
+
+  // An effect event reads the latest fetchWeather without making the effect below re-run on every render
+  const reloadPlace = useEffectEvent(() => {
+    if (placeRef.current) startTransition(() => fetchWeather(placeRef.current, { keepQuery: true }));
+  });
+
+  // A new language reloads the place on screen, so its description changes language too
+  useEffect(() => {
+    document.documentElement.lang = language;
+    reloadPlace();
+  }, [language]);
 
   function searchWeather(city) {
     startTransition(() => fetchWeather({ city }));
@@ -72,8 +90,8 @@ export default function App() {
         await fetchWeather({ lat: coords.latitude.toFixed(2), lon: coords.longitude.toFixed(2) });
       } catch (error) {
         toast.error(error.code === GeolocationPositionError.PERMISSION_DENIED
-          ? 'Permite el acceso a tu ubicación para ver su tiempo'
-          : 'No se ha podido obtener tu ubicación');
+          ? t('errors.locationDenied')
+          : t('errors.locationFailed'));
       }
     });
   }
@@ -86,7 +104,7 @@ export default function App() {
 
   return (
     <div className="app" data-weather={condition} data-period={period}>
-      <a className="skip-link" href="#main">Saltar al contenido</a>
+      <a className="skip-link" href="#main">{t('app.skipLink')}</a>
       <Backdrop weather={condition} code={data?.weather[0].id} period={period} />
       <Header query={query} onQueryChange={setQuery} onSubmit={handleSubmit} isPending={isPending} />
       <main id="main" className="main" aria-busy={isBusy}>

@@ -1,0 +1,156 @@
+{
+  "app": {
+    "skipLink": "Aller au contenu"
+  },
+  "language": {
+    "select": "Choisir la langue"
+  },
+  "search": {
+    "placeholder": "Rechercher une ville…",
+    "label": "Ville",
+    "submit": "Rechercher",
+    "searching": "Chargement de la météo…"
+  },
+  "welcome": {
+    "eyebrow": "La météo actuelle dans le monde entier",
+    "title": "La météo de n'importe quelle ville, en un instant",
+    "text": "Température, vent, humidité, pression, visibilité et heures d'ensoleillement : tout ce qui se passe en ce moment, d'un coup d'œil.",
+    "useLocation": "Utiliser ma position",
+    "locating": "Recherche de votre position…",
+    "suggestions": "Ou essayez",
+    "tip": "Appuyez sur <kbd>/</kbd> n'importe où sur la page pour aller à la recherche"
+  },
+  "cities": {
+    "madrid": "Madrid",
+    "barcelona": "Barcelone",
+    "london": "Londres",
+    "newYork": "New York",
+    "tokyo": "Tokyo",
+    "buenosAires": "Buenos Aires"
+  },
+  "current": {
+    "localTime": "{{date}} · {{time}} heure locale",
+    "temperature": "Température actuelle :",
+    "feelsLike": "Ressenti"
+  },
+  "wind": {
+    "title": "Vent",
+    "direction": "Provenance",
+    "from": "{{point}} · {{degrees}}°",
+    "gusts": "Rafales"
+  },
+  "sun": {
+    "title": "Soleil",
+    "sunrise": "Lever du soleil",
+    "sunset": "Coucher du soleil",
+    "daylight": "Durée du jour",
+    "risesIn": "Lever du soleil dans {{duration}}",
+    "lightLeft": "Encore {{duration}} de jour",
+    "hasSet": "Le soleil est déjà couché"
+  },
+  "humidity": {
+    "title": "Humidité"
+  },
+  "pressure": {
+    "title": "Pression"
+  },
+  "visibility": {
+    "title": "Visibilité"
+  },
+  "clouds": {
+    "title": "Nébulosité"
+  },
+  "precipitation": {
+    "title": "Précipitations",
+    "rainAndSnow": "Pluie et neige au cours de la dernière heure",
+    "rain": "Pluie au cours de la dernière heure",
+    "snow": "Neige au cours de la dernière heure",
+    "none": "Aucune précipitation au cours de la dernière heure",
+    "rainLabel": "Pluie",
+    "snowLabel": "Neige"
+  },
+  "location": {
+    "title": "Localisation",
+    "coordinates": "Coordonnées",
+    "timeZone": "Fuseau horaire",
+    "measured": "Mesure",
+    "map": "Voir sur la carte",
+    "openWeather": "Voir sur OpenWeather"
+  },
+  "scales": {
+    "wind": {
+      "calm": "Calme",
+      "lightAir": "Très légère brise",
+      "lightBreeze": "Légère brise",
+      "gentleBreeze": "Petite brise",
+      "moderateBreeze": "Jolie brise",
+      "freshBreeze": "Bonne brise",
+      "strongBreeze": "Vent frais",
+      "nearGale": "Grand frais",
+      "gale": "Coup de vent",
+      "strongGale": "Fort coup de vent",
+      "storm": "Tempête",
+      "violentStorm": "Violente tempête",
+      "hurricane": "Ouragan"
+    },
+    "humidity": {
+      "dry": "Air sec",
+      "comfortable": "Humidité agréable",
+      "humid": "Air humide",
+      "veryHumid": "Très humide"
+    },
+    "pressure": {
+      "low": "Pression basse",
+      "normal": "Pression normale",
+      "high": "Pression élevée"
+    },
+    "visibility": {
+      "veryPoor": "Très réduite",
+      "poor": "Réduite",
+      "moderate": "Modérée",
+      "good": "Bonne",
+      "excellent": "Excellente"
+    },
+    "clouds": {
+      "clear": "Ciel dégagé",
+      "few": "Peu nuageux",
+      "partly": "Partiellement nuageux",
+      "mostly": "Nuageux",
+      "overcast": "Couvert"
+    }
+  },
+  "compass": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSO",
+    "SO",
+    "OSO",
+    "O",
+    "ONO",
+    "NO",
+    "NNO"
+  ],
+  "footer": {
+    "tagline": "La météo actuelle de n'importe quelle ville du monde.",
+    "nav": "Liens externes",
+    "data": "Données d'OpenWeather",
+    "code": "Code sur GitHub",
+    "portfolio": "Portfolio"
+  },
+  "externalLink": {
+    "newTab": "(s'ouvre dans un nouvel onglet)"
+  },
+  "errors": {
+    "notFound": "Ville « {{city}} » introuvable",
+    "failed": "Impossible de charger la météo, réessayez plus tard",
+    "locationDenied": "Autorisez l'accès à votre position pour voir sa météo",
+    "locationFailed": "Impossible d'obtenir votre position"
+  }
+}

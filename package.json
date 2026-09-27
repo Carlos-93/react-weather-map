@@ -13,9 +13,13 @@
   },
   "dependencies": {
     "@meteocons/svg": "^0.1.0",
+    "i18next": "^26.4.2",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "i18next-resources-to-backend": "^1.2.3",
     "lucide-react": "^1.48.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "react-i18next": "^17.0.15",
     "sonner": "^2.0.8"
   },
   "devDependencies": {

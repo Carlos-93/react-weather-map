@@ -1,0 +1,156 @@
+{
+  "app": {
+    "skipLink": "Salta al contingut"
+  },
+  "language": {
+    "select": "Seleccionar idioma"
+  },
+  "search": {
+    "placeholder": "Cerca una ciutat…",
+    "label": "Ciutat",
+    "submit": "Cerca",
+    "searching": "Carregant el temps…"
+  },
+  "welcome": {
+    "eyebrow": "El temps actual a tot el món",
+    "title": "El temps de qualsevol ciutat, a l'instant",
+    "text": "Temperatura, vent, humitat, pressió, visibilitat i hores de sol: tot el que està passant ara mateix, d'un cop d'ull.",
+    "useLocation": "Fes servir la meva ubicació",
+    "locating": "Buscant la teva ubicació…",
+    "suggestions": "O prova amb",
+    "tip": "Prem <kbd>/</kbd> a qualsevol lloc de la pàgina per anar al cercador"
+  },
+  "cities": {
+    "madrid": "Madrid",
+    "barcelona": "Barcelona",
+    "london": "Londres",
+    "newYork": "Nova York",
+    "tokyo": "Tòquio",
+    "buenosAires": "Buenos Aires"
+  },
+  "current": {
+    "localTime": "{{date}} · {{time}} hora local",
+    "temperature": "Temperatura actual:",
+    "feelsLike": "Sensació"
+  },
+  "wind": {
+    "title": "Vent",
+    "direction": "Procedència",
+    "from": "{{point}} · {{degrees}}°",
+    "gusts": "Ratxes"
+  },
+  "sun": {
+    "title": "Sol",
+    "sunrise": "Sortida del sol",
+    "sunset": "Posta de sol",
+    "daylight": "Hores de llum",
+    "risesIn": "El sol surt d'aquí a {{duration}}",
+    "lightLeft": "Queden {{duration}} de llum",
+    "hasSet": "El sol ja s'ha post"
+  },
+  "humidity": {
+    "title": "Humitat"
+  },
+  "pressure": {
+    "title": "Pressió"
+  },
+  "visibility": {
+    "title": "Visibilitat"
+  },
+  "clouds": {
+    "title": "Nuvolositat"
+  },
+  "precipitation": {
+    "title": "Precipitació",
+    "rainAndSnow": "Pluja i neu en l'última hora",
+    "rain": "Pluja en l'última hora",
+    "snow": "Neu en l'última hora",
+    "none": "Sense precipitació en l'última hora",
+    "rainLabel": "Pluja",
+    "snowLabel": "Neu"
+  },
+  "location": {
+    "title": "Ubicació",
+    "coordinates": "Coordenades",
+    "timeZone": "Zona horària",
+    "measured": "Dades mesurades",
+    "map": "Veure al mapa",
+    "openWeather": "Veure a OpenWeather"
+  },
+  "scales": {
+    "wind": {
+      "calm": "Calma",
+      "lightAir": "Ventolina",
+      "lightBreeze": "Brisa molt fluixa",
+      "gentleBreeze": "Brisa fluixa",
+      "moderateBreeze": "Brisa moderada",
+      "freshBreeze": "Brisa fresca",
+      "strongBreeze": "Brisa forta",
+      "nearGale": "Vent fort",
+      "gale": "Temporal",
+      "strongGale": "Temporal fort",
+      "storm": "Temporal dur",
+      "violentStorm": "Temporal molt dur",
+      "hurricane": "Huracà"
+    },
+    "humidity": {
+      "dry": "Ambient sec",
+      "comfortable": "Humitat agradable",
+      "humid": "Ambient humit",
+      "veryHumid": "Molt humit"
+    },
+    "pressure": {
+      "low": "Pressió baixa",
+      "normal": "Pressió normal",
+      "high": "Pressió alta"
+    },
+    "visibility": {
+      "veryPoor": "Molt reduïda",
+      "poor": "Reduïda",
+      "moderate": "Moderada",
+      "good": "Bona",
+      "excellent": "Excel·lent"
+    },
+    "clouds": {
+      "clear": "Cel serè",
+      "few": "Poc ennuvolat",
+      "partly": "Mig ennuvolat",
+      "mostly": "Ennuvolat",
+      "overcast": "Cobert"
+    }
+  },
+  "compass": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSO",
+    "SO",
+    "OSO",
+    "O",
+    "ONO",
+    "NO",
+    "NNO"
+  ],
+  "footer": {
+    "tagline": "El temps actual de qualsevol ciutat del món.",
+    "nav": "Enllaços externs",
+    "data": "Dades d'OpenWeather",
+    "code": "Codi a GitHub",
+    "portfolio": "Portfolio"
+  },
+  "externalLink": {
+    "newTab": "(s'obre en una pestanya nova)"
+  },
+  "errors": {
+    "notFound": "No s'ha trobat la ciutat \"{{city}}\"",
+    "failed": "No s'ha pogut carregar el temps, torna-ho a provar més tard",
+    "locationDenied": "Permet l'accés a la teva ubicació per veure'n el temps",
+    "locationFailed": "No s'ha pogut obtenir la teva ubicació"
+  }
+}

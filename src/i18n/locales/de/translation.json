@@ -1,0 +1,156 @@
+{
+  "app": {
+    "skipLink": "Zum Inhalt springen"
+  },
+  "language": {
+    "select": "Sprache auswählen"
+  },
+  "search": {
+    "placeholder": "Stadt suchen…",
+    "label": "Stadt",
+    "submit": "Suchen",
+    "searching": "Wetter wird geladen…"
+  },
+  "welcome": {
+    "eyebrow": "Das aktuelle Wetter weltweit",
+    "title": "Das Wetter jeder Stadt, sofort",
+    "text": "Temperatur, Wind, Luftfeuchtigkeit, Luftdruck, Sichtweite und Sonnenstunden: alles, was gerade passiert, auf einen Blick.",
+    "useLocation": "Meinen Standort verwenden",
+    "locating": "Standort wird ermittelt…",
+    "suggestions": "Oder probiere",
+    "tip": "Drücke <kbd>/</kbd> irgendwo auf der Seite, um zur Suche zu springen"
+  },
+  "cities": {
+    "madrid": "Madrid",
+    "barcelona": "Barcelona",
+    "london": "London",
+    "newYork": "New York",
+    "tokyo": "Tokio",
+    "buenosAires": "Buenos Aires"
+  },
+  "current": {
+    "localTime": "{{date}} · {{time}} Ortszeit",
+    "temperature": "Aktuelle Temperatur:",
+    "feelsLike": "Gefühlt"
+  },
+  "wind": {
+    "title": "Wind",
+    "direction": "Richtung",
+    "from": "Aus {{point}} · {{degrees}}°",
+    "gusts": "Böen"
+  },
+  "sun": {
+    "title": "Sonne",
+    "sunrise": "Sonnenaufgang",
+    "sunset": "Sonnenuntergang",
+    "daylight": "Tageslicht",
+    "risesIn": "Sonnenaufgang in {{duration}}",
+    "lightLeft": "Noch {{duration}} Tageslicht",
+    "hasSet": "Die Sonne ist bereits untergegangen"
+  },
+  "humidity": {
+    "title": "Luftfeuchtigkeit"
+  },
+  "pressure": {
+    "title": "Luftdruck"
+  },
+  "visibility": {
+    "title": "Sichtweite"
+  },
+  "clouds": {
+    "title": "Bewölkung"
+  },
+  "precipitation": {
+    "title": "Niederschlag",
+    "rainAndSnow": "Regen und Schnee in der letzten Stunde",
+    "rain": "Regen in der letzten Stunde",
+    "snow": "Schnee in der letzten Stunde",
+    "none": "Kein Niederschlag in der letzten Stunde",
+    "rainLabel": "Regen",
+    "snowLabel": "Schnee"
+  },
+  "location": {
+    "title": "Standort",
+    "coordinates": "Koordinaten",
+    "timeZone": "Zeitzone",
+    "measured": "Gemessen",
+    "map": "Auf der Karte ansehen",
+    "openWeather": "Auf OpenWeather ansehen"
+  },
+  "scales": {
+    "wind": {
+      "calm": "Windstille",
+      "lightAir": "Leiser Zug",
+      "lightBreeze": "Leichte Brise",
+      "gentleBreeze": "Schwache Brise",
+      "moderateBreeze": "Mäßige Brise",
+      "freshBreeze": "Frische Brise",
+      "strongBreeze": "Starker Wind",
+      "nearGale": "Steifer Wind",
+      "gale": "Stürmischer Wind",
+      "strongGale": "Sturm",
+      "storm": "Schwerer Sturm",
+      "violentStorm": "Orkanartiger Sturm",
+      "hurricane": "Orkan"
+    },
+    "humidity": {
+      "dry": "Trockene Luft",
+      "comfortable": "Angenehme Luftfeuchtigkeit",
+      "humid": "Feuchte Luft",
+      "veryHumid": "Sehr feucht"
+    },
+    "pressure": {
+      "low": "Niedriger Luftdruck",
+      "normal": "Normaler Luftdruck",
+      "high": "Hoher Luftdruck"
+    },
+    "visibility": {
+      "veryPoor": "Sehr gering",
+      "poor": "Gering",
+      "moderate": "Mäßig",
+      "good": "Gut",
+      "excellent": "Ausgezeichnet"
+    },
+    "clouds": {
+      "clear": "Wolkenlos",
+      "few": "Leicht bewölkt",
+      "partly": "Wolkig",
+      "mostly": "Stark bewölkt",
+      "overcast": "Bedeckt"
+    }
+  },
+  "compass": [
+    "N",
+    "NNO",
+    "NO",
+    "ONO",
+    "O",
+    "OSO",
+    "SO",
+    "SSO",
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+  ],
+  "footer": {
+    "tagline": "Das aktuelle Wetter jeder Stadt der Welt.",
+    "nav": "Externe Links",
+    "data": "Daten von OpenWeather",
+    "code": "Code auf GitHub",
+    "portfolio": "Portfolio"
+  },
+  "externalLink": {
+    "newTab": "(öffnet in einem neuen Tab)"
+  },
+  "errors": {
+    "notFound": "Die Stadt „{{city}}“ wurde nicht gefunden",
+    "failed": "Das Wetter konnte nicht geladen werden, bitte versuche es später erneut",
+    "locationDenied": "Erlaube den Zugriff auf deinen Standort, um das Wetter dort zu sehen",
+    "locationFailed": "Dein Standort konnte nicht ermittelt werden"
+  }
+}

@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, expect, test, vi } from 'vitest';
 import App from './App';
+import i18n from './i18n/config';
 
 // Shaped like a real OpenWeather Current Weather response
 const madrid = {
@@ -36,6 +37,7 @@ const card = (title) => screen.getByRole('heading', { level: 2, name: title }).c
 
 afterEach(() => {
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
 });
 
 test('shows the current weather of the searched city', async () => {
@@ -44,7 +46,7 @@ test('shows the current weather of the searched city', async () => {
   await search('Madrid');
 
   expect(await screen.findByRole('heading', { level: 1, name: 'Madrid' })).toBeInTheDocument();
-  expect(global.fetch).toHaveBeenCalledWith('/api/weather?city=Madrid');
+  expect(global.fetch).toHaveBeenCalledWith('/api/weather?city=Madrid&lang=es');
   expect(screen.getByText('España')).toBeInTheDocument();
   expect(screen.getByText('21°')).toBeInTheDocument();
   expect(screen.getByText('tormenta, niebla')).toBeInTheDocument();
@@ -92,8 +94,37 @@ test('searches a suggested city and moves focus to the result', async () => {
   await userEvent.click(screen.getByRole('button', { name: 'Londres' }));
 
   const heading = await screen.findByRole('heading', { level: 1, name: 'Madrid' });
-  expect(global.fetch).toHaveBeenCalledWith('/api/weather?city=London%2CGB');
+  expect(global.fetch).toHaveBeenCalledWith('/api/weather?city=London%2CGB&lang=es');
   expect(heading).toHaveFocus();
+});
+
+test('translates the interface and reloads the weather in the chosen language', async () => {
+  mockFetch(200, madrid);
+  render(<App />);
+  await search('Madrid');
+  await screen.findByRole('heading', { level: 1, name: 'Madrid' });
+
+  await userEvent.click(screen.getByRole('button', { name: 'Seleccionar idioma: Español' }));
+  await userEvent.click(screen.getByRole('button', { name: 'English' }));
+
+  expect(await screen.findByRole('heading', { level: 2, name: 'Wind' })).toBeInTheDocument();
+  expect(card('Wind')).toHaveTextContent(/Gentle breeze.*From NW · 315°/);
+  expect(card('Location')).toHaveTextContent(/40\.42° N, 3\.70° W/);
+  expect(global.fetch).toHaveBeenLastCalledWith('/api/weather?city=Madrid&lang=en');
+  expect(document.documentElement).toHaveAttribute('lang', 'en');
+  expect(localStorage.getItem('language')).toBe('en');
+  expect(screen.getByRole('button', { name: 'Select language: English' })).toHaveFocus();
+});
+
+test('starts in the browser language when none was picked before', async () => {
+  vi.spyOn(navigator, 'languages', 'get').mockReturnValue(['de-DE', 'de']);
+  // A first visit: nothing saved, so changeLanguage without a language runs the detection again
+  localStorage.clear();
+  await i18n.changeLanguage();
+  render(<App />);
+
+  expect(screen.getByRole('heading', { level: 1, name: 'Das Wetter jeder Stadt, sofort' })).toBeInTheDocument();
+  expect(document.documentElement).toHaveAttribute('lang', 'de');
 });
 
 // jsdom has no Geolocation API: answer getCurrentPosition with a position or an error, or never (null)
@@ -122,7 +153,7 @@ test('shows the weather at the user location, rounded to two decimals', async ()
   await userEvent.click(screen.getByRole('button', { name: 'Usar mi ubicación' }));
 
   expect(await screen.findByRole('heading', { level: 1, name: 'Madrid' })).toHaveFocus();
-  expect(global.fetch).toHaveBeenCalledWith('/api/weather?lat=41.54&lon=2.21');
+  expect(global.fetch).toHaveBeenCalledWith('/api/weather?lat=41.54&lon=2.21&lang=es');
 });
 
 test('shows a notice when the location permission is denied', async () => {

@@ -13,6 +13,22 @@ import rain from '@meteocons/svg/fill/rain.svg?raw';
 import snow from '@meteocons/svg/fill/snow.svg?raw';
 import thunderstormsDayRain from '@meteocons/svg/fill/thunderstorms-day-rain.svg?raw';
 import thunderstormsNightRain from '@meteocons/svg/fill/thunderstorms-night-rain.svg?raw';
+import cataloniaFlag from './assets/images/flags/catalonia.webp';
+import franceFlag from './assets/images/flags/france.webp';
+import germanyFlag from './assets/images/flags/germany.webp';
+import italyFlag from './assets/images/flags/italy.webp';
+import spainFlag from './assets/images/flags/spain.webp';
+import unitedKingdomFlag from './assets/images/flags/united-kingdom.webp';
+
+// Interface languages, in the portfolio's order; `locale` drives Intl dates, numbers and country names
+export const LANGUAGES = [
+  { code: 'es', name: 'Español', locale: 'es-ES', flag: spainFlag },
+  { code: 'ca', name: 'Català', locale: 'ca-ES', flag: cataloniaFlag },
+  { code: 'en', name: 'English', locale: 'en-GB', flag: unitedKingdomFlag },
+  { code: 'de', name: 'Deutsch', locale: 'de-DE', flag: germanyFlag },
+  { code: 'it', name: 'Italiano', locale: 'it-IT', flag: italyFlag },
+  { code: 'fr', name: 'Français', locale: 'fr-FR', flag: franceFlag },
+];
 
 // Object mapping weather conditions to corresponding CSS classes for styling
 export const WEATHER_CONDITIONS = {
@@ -47,73 +63,67 @@ export const WEATHER_ICONS = {
   '50n': fogNight,
 };
 
-// Example searches shown before the first one; the country code avoids homonyms
+// Example searches shown before the first one; the country code avoids homonyms and `key` names the label in the translations
 export const SUGGESTED_CITIES = [
-  { label: 'Madrid', query: 'Madrid,ES' },
-  { label: 'Barcelona', query: 'Barcelona,ES' },
-  { label: 'Londres', query: 'London,GB' },
-  { label: 'Nueva York', query: 'New York,US' },
-  { label: 'Tokio', query: 'Tokyo,JP' },
-  { label: 'Buenos Aires', query: 'Buenos Aires,AR' },
+  { key: 'madrid', query: 'Madrid,ES' },
+  { key: 'barcelona', query: 'Barcelona,ES' },
+  { key: 'london', query: 'London,GB' },
+  { key: 'newYork', query: 'New York,US' },
+  { key: 'tokyo', query: 'Tokyo,JP' },
+  { key: 'buenosAires', query: 'Buenos Aires,AR' },
 ];
 
-// 16-point compass rose in Spanish (O = oeste)
-export const COMPASS_POINTS = [
-  'N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
-  'S', 'SSO', 'SO', 'OSO', 'O', 'ONO', 'NO', 'NNO',
-];
-
-// Qualitative scales as [upper limit, label] pairs, checked in order
+// Qualitative scales as [upper limit, key] pairs, checked in order; each key is translated under scales.<name>
 export const WIND_SCALE = [
-  [1, 'Calma'],
-  [6, 'Ventolina'],
-  [12, 'Brisa muy débil'],
-  [20, 'Brisa débil'],
-  [29, 'Brisa moderada'],
-  [39, 'Brisa fresca'],
-  [50, 'Brisa fuerte'],
-  [62, 'Viento fuerte'],
-  [75, 'Temporal'],
-  [89, 'Temporal fuerte'],
-  [103, 'Temporal duro'],
-  [118, 'Temporal muy duro'],
-  [Infinity, 'Huracán'],
+  [1, 'calm'],
+  [6, 'lightAir'],
+  [12, 'lightBreeze'],
+  [20, 'gentleBreeze'],
+  [29, 'moderateBreeze'],
+  [39, 'freshBreeze'],
+  [50, 'strongBreeze'],
+  [62, 'nearGale'],
+  [75, 'gale'],
+  [89, 'strongGale'],
+  [103, 'storm'],
+  [118, 'violentStorm'],
+  [Infinity, 'hurricane'],
 ];
 
 export const HUMIDITY_SCALE = [
-  [30, 'Ambiente seco'],
-  [60, 'Humedad agradable'],
-  [80, 'Ambiente húmedo'],
-  [Infinity, 'Muy húmedo'],
+  [30, 'dry'],
+  [60, 'comfortable'],
+  [80, 'humid'],
+  [Infinity, 'veryHumid'],
 ];
 
 export const PRESSURE_SCALE = [
-  [1009, 'Presión baja'],
-  [1023, 'Presión normal'],
-  [Infinity, 'Presión alta'],
+  [1009, 'low'],
+  [1023, 'normal'],
+  [Infinity, 'high'],
 ];
 
 export const VISIBILITY_SCALE = [
-  [1, 'Muy reducida'],
-  [2, 'Reducida'],
-  [5, 'Moderada'],
-  [10, 'Buena'],
-  [Infinity, 'Excelente'],
+  [1, 'veryPoor'],
+  [2, 'poor'],
+  [5, 'moderate'],
+  [10, 'good'],
+  [Infinity, 'excellent'],
 ];
 
 // Same bands as OpenWeather's cloud codes 801-804, so the card agrees with CLOUD_DESCRIPTIONS
 export const CLOUDS_SCALE = [
-  [11, 'Cielo despejado'],
-  [25, 'Poco nuboso'],
-  [51, 'Intervalos nubosos'],
-  [85, 'Nuboso'],
-  [Infinity, 'Cubierto'],
+  [11, 'clear'],
+  [25, 'few'],
+  [51, 'partly'],
+  [85, 'mostly'],
+  [Infinity, 'overcast'],
 ];
 
-// AEMET sky terms for OpenWeather's cloud codes, whose Spanish labels sound gloomier ("muy nuboso" for 51-84 %)
+// Cloud codes shown with the scales.clouds terms (AEMET's in Spanish), whose bands fit better than OpenWeather's labels ("muy nuboso" for 51-84 %)
 export const CLOUD_DESCRIPTIONS = {
-  801: 'poco nuboso',
-  802: 'intervalos nubosos',
-  803: 'nuboso',
-  804: 'cubierto',
+  801: 'few',
+  802: 'partly',
+  803: 'mostly',
+  804: 'overcast',
 };

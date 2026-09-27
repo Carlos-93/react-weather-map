@@ -89,7 +89,8 @@
     }
   }
 
-  @media (hover: none) {
+  /* No keyboard shortcut hint on touch screens or where the header also holds the language selector in little space */
+  @media (hover: none), (width < 34rem) {
     .search__shortcut {
       display: none;
     }

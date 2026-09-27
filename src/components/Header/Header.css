@@ -41,6 +41,11 @@
   }
 
   @media (width < 34rem) {
+    .header {
+      gap: 0.5rem;
+      padding-inline-start: 0.9rem;
+    }
+
     .brand__name {
       position: absolute;
       inline-size: 1px;
