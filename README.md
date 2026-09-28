@@ -8,11 +8,11 @@ A React web app that shows the current weather for any city, using the [OpenWeat
 
 ## Features
 
-- Search by city (press `/` from anywhere to jump to the search box), use your current location or pick one of the suggested cities.
+- Search by city in any of the six languages ("Nueva York", "Múnich", "Pekín"), with suggestions from the first letters ("Barcel") to pick the right place among namesakes; press `/` from anywhere to jump to the search box. You can also use your current location or pick one of the suggested cities.
 - The current weather: temperature, feels like, description and icon, wind speed, gusts and direction on a compass, humidity, pressure, visibility, cloudiness, rain or snow in the last hour, sunrise, sunset and daylight on the sun's arc, coordinates, time zone, local time and when the data was measured.
 - Full-screen background that matches the weather, with ambient effects: rain, snow, lightning, drifting mist, a sun glow or stars at night.
 - Glass cards, staggered entrance animations and cross-fades between searches (View Transitions API), all reduced to simple fades when the system asks for reduced motion.
-- Six languages with a flag selector: Spanish, Catalan, English, German, Italian and French. Dates, numbers, country names and OpenWeather's weather descriptions follow the chosen language. The first visit uses the browser language (Spanish if it is not one of the six), and a language picked by hand is remembered.
+- Six languages with a flag selector: Spanish, Catalan, English, German, Italian and French. Dates, numbers, city and country names and OpenWeather's weather descriptions follow the chosen language. The first visit uses the browser language (Spanish if it is not one of the six), and a language picked by hand is remembered.
 - Notice when the city does not exist or the request fails.
 
 ## Tech stack
@@ -21,6 +21,7 @@ A React web app that shows the current weather for any city, using the [OpenWeat
 - Native `fetch` for API requests
 - [sonner](https://sonner.emilkowal.ski) for notices
 - [i18next](https://www.i18next.com) with [react-i18next](https://react.i18next.com) for translations
+- [Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api) (GeoNames data) for the city search and suggestions
 - [Lucide](https://lucide.dev) icons and animated [Meteocons](https://github.com/basmilius/meteocons-poc) weather icons by Bas Milius (MIT)
 - Plain CSS with cascade layers, container queries and native nesting
 - [Vitest](https://vitest.dev) and [Testing Library](https://testing-library.com) for tests, [Oxlint](https://oxc.rs/docs/guide/usage/linter) for linting
@@ -65,4 +66,4 @@ Requirements: Node.js 22.22 or 24.15 or later and [pnpm](https://pnpm.io). The p
 
 The project deploys to [Vercel](https://vercel.com) on every push to `main`. `OPENWEATHER_KEY` must be set in the Vercel project settings.
 
-The browser never calls OpenWeather directly. It calls `/api/weather`, a Vercel Function in `api/weather.js` that adds the API key on the server, so the key does not appear in the client code. During development, a small Vite plugin in `plugins/weather-api.js` runs the same function inside the `pnpm dev` and `pnpm preview` servers.
+The browser never calls OpenWeather directly. It calls `/api/weather` and `/api/cities`, Vercel Functions in `api/` that add the API key on the server, so the key does not appear in the client code. City names are geocoded with Open-Meteo, which needs no key. During development, a small Vite plugin in `plugins/weather-api.js` runs the same function inside the `pnpm dev` and `pnpm preview` servers.

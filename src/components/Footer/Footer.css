@@ -1,53 +1,102 @@
 @layer components {
+
+  /* Edge to edge: it closes the page instead of floating like the header */
   .footer {
-    display: grid;
-    align-items: center;
-    gap: 1.25rem 2rem;
-    inline-size: min(100% - 2 * clamp(1rem, 0.4rem + 2.5vw, 2.5rem), 76rem);
-    margin: 0 auto 1.25rem;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid oklch(100% 0 0 / 0.14);
-    border-radius: 1.75rem;
-    background: oklch(20% 0.025 258 / 0.52);
+    border-block-start: 1px solid oklch(100% 0 0 / 0.12);
+    background: oklch(17% 0.03 258 / 0.6);
     backdrop-filter: blur(22px) saturate(160%);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     color: oklch(93% 0.01 250 / 0.82);
   }
 
-  @media (width >=48rem) {
-    .footer {
-      grid-template-columns: 1fr auto;
-    }
+  /* The content lines up with the header and the main column */
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25rem 2rem;
+    inline-size: min(100% - 2 * clamp(1rem, 0.4rem + 2.5vw, 2.5rem), 76rem);
+    margin-inline: auto;
+    padding-block: 0.75rem;
   }
 
-  .footer__name {
+  .footer__brand {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.0625rem;
-    font-weight: 600;
-    color: oklch(98% 0.005 250);
+    gap: 0.25rem 0.75rem;
 
     & svg {
-      inline-size: 1.25rem;
-      block-size: 1.25rem;
+      inline-size: 1.15rem;
+      block-size: 1.15rem;
+      margin-inline-end: -0.25rem;
       color: var(--accent);
+    }
+
+    & strong {
+      font-weight: 600;
+      color: oklch(98% 0.005 250);
+    }
+
+    & span {
+      padding-inline-start: 0.75rem;
+      border-inline-start: 1px solid oklch(100% 0 0 / 0.2);
     }
   }
 
   .footer__links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    align-items: center;
+    column-gap: 1.75rem;
     padding: 0;
     list-style: none;
+
+    & li {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      column-gap: 1rem;
+    }
   }
 
-  .footer__copy {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding-block-start: 1rem;
-    border-block-start: 1px solid oklch(100% 0 0 / 0.14);
-    font-size: 0.8125rem;
+  /* Plain text links: pills would weigh too much on a slim bar */
+  .footer__links .external-link {
+    padding-inline: 0;
+    border: 0;
+    background: none;
+    font-size: inherit;
+    color: oklch(98% 0.005 250);
+    text-decoration: underline transparent;
+    text-underline-offset: 0.3em;
+    transition: text-decoration-color 250ms;
+
+    &:hover {
+      background: none;
+      text-decoration-color: currentColor;
+    }
+  }
+
+  @media (width < 48rem) {
+
+    .footer__inner,
+    .footer__brand,
+    .footer__links,
+    .footer__links li {
+      justify-content: center;
+    }
+
+    .footer__inner {
+      padding-block: 1rem 0.5rem;
+    }
+
+    /* The copyright gets its own line, so the divider goes */
+    .footer__brand span {
+      flex-basis: 100%;
+      padding: 0;
+      border: 0;
+      text-align: center;
+    }
   }
 }

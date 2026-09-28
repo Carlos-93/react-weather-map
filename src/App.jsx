@@ -1,7 +1,9 @@
 import { useEffect, useEffectEvent, useRef, useState, useTransition } from 'react';
+import { formatTemperature } from './utils/format';
+import { WEATHER_CONDITIONS } from './constants';
 import { useTranslation } from 'react-i18next';
-import { flushSync } from 'react-dom';
 import { Toaster, toast } from 'sonner';
+import { flushSync } from 'react-dom';
 
 import Backdrop from './components/Backdrop/Backdrop';
 import CurrentWeather from './components/CurrentWeather/CurrentWeather';
@@ -9,8 +11,6 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import WeatherDetails from './components/WeatherDetails/WeatherDetails';
 import Welcome from './components/Welcome/Welcome';
-import { WEATHER_CONDITIONS } from './constants';
-import { formatTemperature } from './utils/format';
 
 // Cross-fades the whole page to the new state where the View Transitions API exists
 function showWithTransition(update) {
@@ -45,7 +45,7 @@ export default function App() {
     if (data && document.activeElement === document.body) headingRef.current?.focus();
   }, [data]);
 
-  // Method to fetch weather data for { city } or { lat, lon } and update the state accordingly
+  // Method to fetch weather data for { id }, { city } or { lat, lon } and update the state accordingly
   async function fetchWeather(place, { keepQuery = false } = {}) {
     try {
       // OpenWeather writes the weather description in the requested language
@@ -77,8 +77,9 @@ export default function App() {
     reloadPlace();
   }, [language]);
 
-  function searchWeather(city) {
-    startTransition(() => fetchWeather({ city }));
+  // Search suggestions and suggested cities send their GeoNames id: that exact place, never a namesake
+  function selectCity(id) {
+    if (!isBusy) startTransition(() => fetchWeather({ id }));
   }
 
   // The browser only asks for the location permission here, after a click, never on load
@@ -99,14 +100,14 @@ export default function App() {
   function handleSubmit(event) {
     event.preventDefault();
     const city = query.trim();
-    if (city && !isBusy) searchWeather(city);
+    if (city && !isBusy) startTransition(() => fetchWeather({ city }));
   }
 
   return (
     <div className="app" data-weather={condition} data-period={period}>
       <a className="skip-link" href="#main">{t('app.skipLink')}</a>
       <Backdrop weather={condition} code={data?.weather[0].id} period={period} />
-      <Header query={query} onQueryChange={setQuery} onSubmit={handleSubmit} isPending={isPending} />
+      <Header query={query} onQueryChange={setQuery} onSubmit={handleSubmit} onSelect={selectCity} isPending={isPending} />
       <main id="main" className="main" aria-busy={isBusy}>
         {data ? (
           <div className="weather" key={`${data.id}-${data.dt}`}>
@@ -114,7 +115,7 @@ export default function App() {
             <WeatherDetails data={data} />
           </div>
         ) : (
-          <Welcome onSelect={searchWeather} onLocate={searchMyLocation} isPending={isBusy} isLocating={isLocating} />
+          <Welcome onSelect={selectCity} onLocate={searchMyLocation} isPending={isBusy} isLocating={isLocating} />
         )}
       </main>
       <Footer />

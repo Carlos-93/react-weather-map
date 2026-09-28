@@ -63,14 +63,14 @@ export const WEATHER_ICONS = {
   '50n': fogNight,
 };
 
-// Example searches shown before the first one; the country code avoids homonyms and `key` names the label in the translations
+// Example searches shown before the first one: `id` is the GeoNames id Open-Meteo knows each city by, and `key` names the label in the translations
 export const SUGGESTED_CITIES = [
-  { key: 'madrid', query: 'Madrid,ES' },
-  { key: 'barcelona', query: 'Barcelona,ES' },
-  { key: 'london', query: 'London,GB' },
-  { key: 'newYork', query: 'New York,US' },
-  { key: 'tokyo', query: 'Tokyo,JP' },
-  { key: 'buenosAires', query: 'Buenos Aires,AR' },
+  { key: 'madrid', id: 3117735 },
+  { key: 'barcelona', id: 3128760 },
+  { key: 'london', id: 2643743 },
+  { key: 'newYork', id: 5128581 },
+  { key: 'tokyo', id: 1850147 },
+  { key: 'buenosAires', id: 3435910 },
 ];
 
 // Qualitative scales as [upper limit, key] pairs, checked in order; each key is translated under scales.<name>

@@ -25,15 +25,23 @@ const madrid = {
   cod: 200,
 };
 
-function mockFetch(status, body = {}) {
-  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: status < 400, status, json: async () => body }));
+// /api/cities answers with `cities` (the search suggestions); /api/weather with `status` and `body`
+function mockFetch(status, body = {}, cities = []) {
+  vi.stubGlobal('fetch', vi.fn(async (url) => (url.startsWith('/api/cities')
+    ? { ok: true, status: 200, json: async () => cities }
+    : { ok: status < 400, status, json: async () => body })));
 }
 
 async function search(city) {
-  await userEvent.type(screen.getByRole('searchbox', { name: 'Ciudad' }), `${city}{Enter}`);
+  await userEvent.type(screen.getByRole('combobox', { name: 'Ciudad' }), `${city}{Enter}`);
 }
 
 const card = (title) => screen.getByRole('heading', { level: 2, name: title }).closest('section');
+
+const newYorks = [
+  { id: 5128581, name: 'Nueva York', state: 'Nueva York', country: 'US' },
+  { id: 3995402, name: 'Nueva York', state: 'Sonora', country: 'MX' },
+];
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -54,7 +62,7 @@ test('shows the current weather of the searched city', async () => {
   expect(screen.getByText('Sensación').nextSibling).toHaveTextContent('19°');
   expect(container.querySelector('.app')).toHaveAttribute('data-weather', 'thunderstorm');
   expect(document.title).toBe('Madrid, 21° · Tiempo y Radar');
-  expect(screen.getByRole('searchbox')).toHaveValue('');
+  expect(screen.getByRole('combobox')).toHaveValue('');
 });
 
 test('shows every detail card', async () => {
@@ -94,8 +102,45 @@ test('searches a suggested city and moves focus to the result', async () => {
   await userEvent.click(screen.getByRole('button', { name: 'Londres' }));
 
   const heading = await screen.findByRole('heading', { level: 1, name: 'Madrid' });
-  expect(global.fetch).toHaveBeenCalledWith('/api/weather?city=London%2CGB&lang=es');
+  expect(global.fetch).toHaveBeenCalledWith('/api/weather?id=2643743&lang=es');
   expect(heading).toHaveFocus();
+});
+
+test('suggests cities while typing and picks one with the keyboard', async () => {
+  mockFetch(200, madrid, newYorks);
+  render(<App />);
+  const input = screen.getByRole('combobox', { name: 'Ciudad' });
+  await userEvent.type(input, 'Nueva Y');
+
+  const options = await screen.findAllByRole('option');
+  expect(options).toHaveLength(2);
+  expect(options[1]).toHaveTextContent('Nueva YorkSonora, México');
+  expect(global.fetch).toHaveBeenCalledWith('/api/cities?q=Nueva+Y&lang=es', expect.anything());
+  expect(input).toHaveAttribute('aria-expanded', 'true');
+
+  await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+  expect(input).toHaveAttribute('aria-activedescendant', options[1].id);
+  await userEvent.keyboard('{Enter}');
+
+  await screen.findByRole('heading', { level: 1, name: 'Madrid' });
+  expect(global.fetch).toHaveBeenCalledWith('/api/weather?id=3995402&lang=es');
+});
+
+test('picks a suggestion with a click and closes the list with Escape', async () => {
+  mockFetch(200, madrid, newYorks);
+  render(<App />);
+  const input = screen.getByRole('combobox', { name: 'Ciudad' });
+  await userEvent.type(input, 'Nueva');
+  await screen.findAllByRole('option');
+
+  await userEvent.keyboard('{Escape}');
+  expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  expect(input).toHaveValue('Nueva');
+
+  await userEvent.keyboard('{ArrowDown}');
+  await userEvent.click(screen.getAllByRole('option')[0]);
+  await screen.findByRole('heading', { level: 1, name: 'Madrid' });
+  expect(global.fetch).toHaveBeenCalledWith('/api/weather?id=5128581&lang=es');
 });
 
 test('translates the interface and reloads the weather in the chosen language', async () => {
@@ -170,7 +215,7 @@ test('focuses the search with the "/" shortcut', async () => {
   render(<App />);
   await userEvent.keyboard('/');
 
-  expect(screen.getByRole('searchbox')).toHaveFocus();
+  expect(screen.getByRole('combobox')).toHaveFocus();
 });
 
 test('keeps the query and shows a notice when the city does not exist', async () => {
@@ -179,7 +224,7 @@ test('keeps the query and shows a notice when the city does not exist', async ()
   await search('Atlantis');
 
   expect(await screen.findByText('No se ha encontrado la ciudad "Atlantis"')).toBeInTheDocument();
-  expect(screen.getByRole('searchbox')).toHaveValue('Atlantis');
+  expect(screen.getByRole('combobox')).toHaveValue('Atlantis');
 });
 
 test('shows a notice when the request fails', async () => {

@@ -9,7 +9,10 @@
     "placeholder": "Cerca una ciutat…",
     "label": "Ciutat",
     "submit": "Cerca",
-    "searching": "Carregant el temps…"
+    "searching": "Carregant el temps…",
+    "suggestions": "Ciutats suggerides",
+    "results_one": "{{count}} ciutat suggerida",
+    "results_other": "{{count}} ciutats suggerides"
   },
   "welcome": {
     "eyebrow": "El temps actual a tot el món",
@@ -138,11 +141,9 @@
     "NNO"
   ],
   "footer": {
-    "tagline": "El temps actual de qualsevol ciutat del món.",
     "nav": "Enllaços externs",
-    "data": "Dades d'OpenWeather",
-    "code": "Codi a GitHub",
-    "portfolio": "Portfolio"
+    "data": "Dades:",
+    "code": "Codi a GitHub"
   },
   "externalLink": {
     "newTab": "(s'obre en una pestanya nova)"

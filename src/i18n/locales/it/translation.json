@@ -9,7 +9,10 @@
     "placeholder": "Cerca una città…",
     "label": "Città",
     "submit": "Cerca",
-    "searching": "Caricamento del meteo…"
+    "searching": "Caricamento del meteo…",
+    "suggestions": "Città suggerite",
+    "results_one": "{{count}} città suggerita",
+    "results_other": "{{count}} città suggerite"
   },
   "welcome": {
     "eyebrow": "Il meteo attuale in tutto il mondo",
@@ -138,11 +141,9 @@
     "NNO"
   ],
   "footer": {
-    "tagline": "Il meteo attuale di qualsiasi città del mondo.",
     "nav": "Link esterni",
-    "data": "Dati di OpenWeather",
-    "code": "Codice su GitHub",
-    "portfolio": "Portfolio"
+    "data": "Dati:",
+    "code": "Codice su GitHub"
   },
   "externalLink": {
     "newTab": "(si apre in una nuova scheda)"

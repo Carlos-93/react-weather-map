@@ -9,7 +9,10 @@
     "placeholder": "Busca una ciudad…",
     "label": "Ciudad",
     "submit": "Buscar",
-    "searching": "Buscando el tiempo…"
+    "searching": "Buscando el tiempo…",
+    "suggestions": "Ciudades sugeridas",
+    "results_one": "{{count}} ciudad sugerida",
+    "results_other": "{{count}} ciudades sugeridas"
   },
   "welcome": {
     "eyebrow": "El tiempo actual en todo el mundo",
@@ -138,11 +141,9 @@
     "NNO"
   ],
   "footer": {
-    "tagline": "El tiempo actual de cualquier ciudad del mundo.",
     "nav": "Enlaces externos",
-    "data": "Datos de OpenWeather",
-    "code": "Código en GitHub",
-    "portfolio": "Portfolio"
+    "data": "Datos:",
+    "code": "Código en GitHub"
   },
   "externalLink": {
     "newTab": "(se abre en una pestaña nueva)"

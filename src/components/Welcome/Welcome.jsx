@@ -26,9 +26,9 @@ export default function Welcome({ onSelect, onLocate, isPending, isLocating }) {
                 <span className="visually-hidden" role="status">{isLocating ? t('welcome.locating') : ''}</span>
                 <p id="suggestions-label" className="welcome__label">{t('welcome.suggestions')}</p>
                 <ul className="chips" aria-labelledby="suggestions-label">
-                    {SUGGESTED_CITIES.map(({ key, query }, index) => (
-                        <li key={query} style={{ '--index': index }}>
-                            <button className="chip" type="button" onClick={() => onSelect(query)} disabled={isPending}>
+                    {SUGGESTED_CITIES.map(({ key, id }, index) => (
+                        <li key={id} style={{ '--index': index }}>
+                            <button className="chip" type="button" onClick={() => onSelect(id)} disabled={isPending}>
                                 {t(`cities.${key}`)}
                             </button>
                         </li>

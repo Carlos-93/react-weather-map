@@ -9,7 +9,10 @@
     "placeholder": "Stadt suchen…",
     "label": "Stadt",
     "submit": "Suchen",
-    "searching": "Wetter wird geladen…"
+    "searching": "Wetter wird geladen…",
+    "suggestions": "Vorgeschlagene Städte",
+    "results_one": "{{count}} vorgeschlagene Stadt",
+    "results_other": "{{count}} vorgeschlagene Städte"
   },
   "welcome": {
     "eyebrow": "Das aktuelle Wetter weltweit",
@@ -138,11 +141,9 @@
     "NNW"
   ],
   "footer": {
-    "tagline": "Das aktuelle Wetter jeder Stadt der Welt.",
     "nav": "Externe Links",
-    "data": "Daten von OpenWeather",
-    "code": "Code auf GitHub",
-    "portfolio": "Portfolio"
+    "data": "Daten:",
+    "code": "Code auf GitHub"
   },
   "externalLink": {
     "newTab": "(öffnet in einem neuen Tab)"
